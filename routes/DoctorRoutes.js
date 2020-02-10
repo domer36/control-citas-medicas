@@ -39,7 +39,7 @@ router.post("/doctores",async (req,res)=>{
 router.put("/doctores/:id", async (req,res)=>{
     const {doctor_name,doctor_cedula,doctor_especialidad,doctor_email} = req.body;
     if(doctor_name === "" || doctor_cedula==="" || doctor_especialidad===""|| doctor_email===""){
-        res.send({
+        return res.send({
             status:"error",
             message:"Favor de llenar todos los campos requeridos"
         })
@@ -82,14 +82,11 @@ router.delete("/doctores/:id", async(req,res)=>{
 })
 
 router.get("/doctores/:id",async(req,res)=>{
-    const doctor= await Doctor.findById({_id: req.params.id})
-    .then(res.send(doctor,{
-        status:"done",
-        message:"Doctor encontrado"
-    }))
-    .catch(res.send({
-        status:"error",
-        message:"Doctor no encontrado"
-    }));
+    const doctor= await Doctor.findById(req.params.id)
+    doctor.status="done";
+    doctor.message="Doctor Encontrado"
+    if(doctor) return res.send(doctor)
+    else return{status:"error",
+                message:"No se encontro el doctor"}
 })
 module.exports = router
