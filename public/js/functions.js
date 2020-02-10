@@ -18,20 +18,47 @@ function getDoctorFormData(){
 
 
 async function GuardarDoctor(){
+    
     await axios.post('/doctores', getDoctorFormData()).then(res => {
         console.log(res.data.message)
+        $('#exampleModal').modal('hide')
+        if( res.data.status === 'done') {
+            Swal.fire({ icon: 'success', text: 'Se guardó con éxito' })
+            displayPage('/get/doctorForm')
+        }
+        else if( res.data.status === 'error') Swal.fire({ icon: 'error', text: res.data.message })
     }).catch(err => {
         console.log(err)
     })
-    displayPage('/get/doctorForm')
 }
 
 function EditarDoctor(id){
     axios.put('/doctores/'+id, getDoctorFormData())
 }
-async function EliminarDoctor(id){
-    await axios.delete('/doctores/'+id)
-    displayPage('/get/doctorForm')
+function EliminarDoctor(id, name){
+    Swal.fire({
+        title: 'Estas seguro que deseas eliminar?',
+        text: "Doctor: "+name,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, eliminar!'
+      }).then(async (result) => {
+        if (result.value) {
+            await axios.delete('/doctores/'+id)
+            Swal.fire(
+              'Eliminado!',
+              'Se eliminó con éxito.',
+              'success'
+            )
+            displayPage('/get/doctorForm')
+        }
+      })
+
+
+
+
 }
 
 function ShowDoctor(id){

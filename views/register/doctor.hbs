@@ -1,5 +1,7 @@
-<div class="container">
-    
+<div class="container mt-5">
+    <div class="alert alert-success"></div>
+    <div class="alert alert-danger"></div>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Agregar Doctor</button>
 <table class="table table-sm">
   <thead>
     <tr>
@@ -20,14 +22,13 @@
         <td>{{ doctor.especialidad }}</td>
         <td>{{ doctor.correo }}</td>
         <td><button class="btn" data-toggle="modal" data-target="#exampleModal" onclick="ShowDoctor('{{doctor._id}}')">Editar</button></td>
-        <td><button class="btn btn-danger" onclick="EliminarDoctor('{{doctor._id}}')">Eliminar</button></td>
+        <td><button class="btn btn-danger" onclick="EliminarDoctor('{{doctor._id}}','{{doctor.nombre}}')">Eliminar</button></td>
         </tr>
       {{/each}}
   </tbody>
 </table>
 </div>
 
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Agregar Doctor</button>
 
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
