@@ -3,6 +3,7 @@ const {model , Schema}=require("mongoose");
 const patientSchema = new Schema(
     {
         nombre:String,
+        curp:String,
         fechaNacimiento:Date,
         telefono:Number,
         direccion:String,

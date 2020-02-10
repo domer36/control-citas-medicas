@@ -3,7 +3,7 @@ const Recepcionista = require("../models/Recepcionista")
 
 router.post("/recepcionista",async (req,res)=>{
     const {recepcionista_name,recepcionista_correo} = req.body;
-    if(recepcionista_name === "" || recepcionista_correo ){
+    if(recepcionista_name === "" || recepcionista_correo==="" ){
         return res.send({
             status:"error",
             message:"Favor de llenar todos los campos requeridos"
