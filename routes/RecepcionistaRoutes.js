@@ -4,14 +4,14 @@ const Recepcionista = require("../models/Recepcionista")
 router.post("/recepcionista",async (req,res)=>{
     const {recepcionista_name,recepcionista_correo} = req.body;
     if(recepcionista_name === "" || recepcionista_correo ){
-        res.send({
+        return res.send({
             status:"error",
             message:"Favor de llenar todos los campos requeridos"
         })
     }
     const recepcionista = await Recepcionista.findOne({nombre: recepcionista_name});
-    if(Recepcionista){
-        res.send({
+    if(recepcionista && ){
+        return res.send({
             status:"error",
             message:"Valor ya existe"
         })
@@ -37,7 +37,7 @@ router.post("/recepcionista",async (req,res)=>{
 router.put("/recepcionista/:id", async (req,res)=>{
     const {recepcionista_name,recepcionista_correo} = req.body;
     if(recepcionista_name === "" || recepcionista_correo===""){
-        res.send({
+        return res.send({
             status:"error",
             message:"Favor de llenar todos los campos requeridos"
         })
@@ -60,12 +60,12 @@ router.put("/recepcionista/:id", async (req,res)=>{
     
 } )
 
-router.delete("/doctores/:id", async(req,res)=>{
-    await Doctor.findByIdAndDelete({_id: req.params.id})
+router.delete("/recepcionista/:id", async(req,res)=>{
+    await Recepcionista.findByIdAndDelete({_id: req.params.id})
     .then(
         res.send({
             status:"done",
-            message:"Doctor Eliminado Correctamente"
+            message:"Dato Eliminado Correctamente"
         })
     )
     .catch(
@@ -77,7 +77,7 @@ router.delete("/doctores/:id", async(req,res)=>{
     
 })
 
-router.get("/doctores/:id",async(req,res)=>{
+router.get("/recepcionista/:id",async(req,res)=>{
     const doctor= await Doctor.findById({_id: req.params.id})
     .then(res.send(doctor,{
         status:"done",
