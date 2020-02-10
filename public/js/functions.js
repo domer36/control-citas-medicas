@@ -18,7 +18,9 @@ function getDoctorFormData(){
 
 
 async function GuardarDoctor(){
-    
+    const id = document.querySelector('input[name="doctor_id"]').value
+    if( id ) return EditarDoctor(id)
+
     await axios.post('/doctores', getDoctorFormData()).then(res => {
         console.log(res.data.message)
         $('#exampleModal').modal('hide')
@@ -33,8 +35,21 @@ async function GuardarDoctor(){
 }
 
 function EditarDoctor(id){
-    axios.put('/doctores/'+id, getDoctorFormData())
+    axios.put('/doctores/'+id, getDoctorFormData()).then(res => {
+        console.log(res.data.message)
+        $('#exampleModal').modal('hide')
+        if( res.data.status === 'done') {
+            Swal.fire({ icon: 'success', text: 'Se guardó con éxito' })
+            displayPage('/get/doctorForm')
+        }
+        else if( res.data.status === 'error') Swal.fire({ icon: 'error', text: res.data.message })
+    }).catch(err => {
+        console.log(err)
+    })
 }
+
+
+
 function EliminarDoctor(id, name){
     Swal.fire({
         title: 'Estas seguro que deseas eliminar?',
@@ -62,7 +77,19 @@ function EliminarDoctor(id, name){
 }
 
 function ShowDoctor(id){
-    axios.get('/doctores/'+id)
-    .then(data => console.log(data.data))
+    const url = `/doctores/${id}`
+    console.log(url)
+    axios.get(url)
+    .then(({data}) => {
+        if( data._id ){
+            document.querySelector('input[name="doctor_id"]').value = data._id
+            document.querySelector('input[name="doctor_name"]').value = data.nombre
+            document.querySelector('input[name="doctor_cedula"]').value = data.cedula
+            document.querySelector('input[name="doctor_especialidad"]').value = data.especialidad
+            document.querySelector('input[name="doctor_email"]').value = data.correo
+        }else{
+            Swal.fire({icon: 'error', text:' No se encontró el doctor'})
+        }
+    })
     .catch(err => console.log(err))
 }

@@ -1,17 +1,14 @@
 <div class="container mt-5">
-    <div class="alert alert-success"></div>
-    <div class="alert alert-danger"></div>
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Agregar Doctor</button>
 <table class="table table-sm">
   <thead>
     <tr>
-      
       <th scope="col">Nombre</th>
       <th scope="col">Cedula</th>
       <th scope="col">Especialidad</th>
-      <th scope="col">Corre</th>
-      <th scope="col">Editar</th>
-      <th scope="col">Eliminar</th>
+      <th scope="col">Correo</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
     </tr>
   </thead>
   <tbody>
@@ -21,7 +18,7 @@
         <td>{{ doctor.cedula }}</td>
         <td>{{ doctor.especialidad }}</td>
         <td>{{ doctor.correo }}</td>
-        <td><button class="btn" data-toggle="modal" data-target="#exampleModal" onclick="ShowDoctor('{{doctor._id}}')">Editar</button></td>
+        <td><button class="btn btn-warning" data-toggle="modal" data-target="#exampleModal" onclick="ShowDoctor('{{doctor._id}}')">Editar</button></td>
         <td><button class="btn btn-danger" onclick="EliminarDoctor('{{doctor._id}}','{{doctor.nombre}}')">Eliminar</button></td>
         </tr>
       {{/each}}
@@ -41,6 +38,7 @@
       </div>
       <div class="modal-body">
         <form>
+            <input type="hidden" class="form-control" name="doctor_id">
           <div class="form-group">
             <label for="doctor-name" class="col-form-label">Nombre:</label>
             <input type="text" class="form-control" name="doctor_name">
@@ -60,7 +58,7 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secundary" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary" id="btnGuardarDoctor" onclick="GuardarDoctor()">Guardar</button>
       </div>
     </div>
