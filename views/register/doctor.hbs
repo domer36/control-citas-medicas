@@ -1,35 +1,28 @@
-<script>
-    
-</script>
 <div class="container">
     
 <table class="table table-sm">
   <thead>
     <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
+      
+      <th scope="col">Nombre</th>
+      <th scope="col">Cedula</th>
+      <th scope="col">Especialidad</th>
+      <th scope="col">Corre</th>
+      <th scope="col">Editar</th>
+      <th scope="col">Eliminar</th>
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td colspan="2">Larry the Bird</td>
-      <td>@twitter</td>
-    </tr>
+      {{#each doctores as |doctor indice|}}
+      <tr class="doctor-{{indice}}">
+        <td>{{ doctor.nombre }}</td>
+        <td>{{ doctor.cedula }}</td>
+        <td>{{ doctor.especialidad }}</td>
+        <td>{{ doctor.correo }}</td>
+        <td><button class="btn" data-toggle="modal" data-target="#exampleModal" onclick="ShowDoctor('{{doctor._id}}')">Editar</button></td>
+        <td><button class="btn btn-danger" onclick="EliminarDoctor('{{doctor._id}}')">Eliminar</button></td>
+        </tr>
+      {{/each}}
   </tbody>
 </table>
 </div>
@@ -72,13 +65,3 @@
     </div>
   </div>
 </div>
-
-  <script>
-      
-$('#exampleModal').on('show.bs.modal', function (event) {
-    console.log('algo')
-  var button = $(event.relatedTarget) // Button that triggered the modal
-  console.log(button)
-})
-
-  </script>
