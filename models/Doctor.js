@@ -8,8 +8,9 @@ const doctorSchema = new Schema(
         correo:String
     },
     {
-        timestamps:true
+        timestamps:true,
+        versionKey: false
     }
 );
 
-module.exports = module("Doctor",doctorSchema);
+module.exports = model("Doctor",doctorSchema);

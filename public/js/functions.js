@@ -13,4 +13,10 @@ doctor_especialidad,
 doctor_email
     })
 
+    axios.post('/doctores', {
+        doctor_name,
+doctor_cedula,
+doctor_especialidad,
+doctor_email
+    }).then(res => alert(res.data.message)).catch(err => console.log(err))
 }
