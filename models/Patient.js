@@ -15,8 +15,9 @@ const patientSchema = new Schema(
         }
     },
     {
-        timestamps:true
+        timestamps:true,
+        versionKey: false
     }
 );
 
-module.exports = module("Patient",patientSchema);
+module.exports = model("Patient",patientSchema);

@@ -14,8 +14,9 @@ const datesSchema = new Schema(
         tratamiento:String
     },
     {
-        timestamps:true
+        timestamps:true,
+        versionKey: false
     }
 );
 
-module.exports = module("Dates",datesSchema);
+module.exports = model("Dates",datesSchema);

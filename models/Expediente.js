@@ -14,8 +14,9 @@ const expedienteSchema = new Schema(
         ]
     },
     {
-        timestamps:true
+        timestamps:true,
+        versionKey: false
     }
 );
 
-module.exports = module("Expediente",expedienteSchema);
+module.exports = model("Expediente",expedienteSchema);

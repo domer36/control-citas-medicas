@@ -11,9 +11,10 @@ const userSchema = new Schema(
         }
     },
     {
-        timestamps:true
+        timestamps:true,
+        versionKey: false
     }
 );
 
 userSchema.plugin(PLM,{userNameFiel:"userName"});
-module.exports = module("User",userSchema);
+module.exports = model("User",userSchema);
