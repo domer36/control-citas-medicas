@@ -9,8 +9,8 @@ router.post("/recepcionista",async (req,res)=>{
             message:"Favor de llenar todos los campos requeridos"
         })
     }
-    const recepcionista = await Recepcionista.findOne({nombre: recepcionista_name});
-    if(recepcionista && ){
+    const recepcionista = await Recepcionista.findOne({nombre: recepcionista_name});//checar tambien correo
+    if(recepcionista){
         return res.send({
             status:"error",
             message:"Valor ya existe"
@@ -78,14 +78,11 @@ router.delete("/recepcionista/:id", async(req,res)=>{
 })
 
 router.get("/recepcionista/:id",async(req,res)=>{
-    const doctor= await Doctor.findById({_id: req.params.id})
-    .then(res.send(doctor,{
-        status:"done",
-        message:"Doctor encontrado"
-    }))
-    .catch(res.send({
-        status:"error",
-        message:"Doctor no encontrado"
-    }));
+    const recepcionista= await Recepcionista.findById(req.params.id)
+    recepcionista.status="done";
+    recepcionista.message="Dato Encontrado"
+    if(recepcionista) return res.send(recepcionista)
+    else return{status:"error",
+                message:"Dato no encontrado"}
 })
 module.exports = router
