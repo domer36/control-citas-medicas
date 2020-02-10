@@ -36,7 +36,7 @@ router.post("/doctores",async (req,res)=>{
 
 })
 
-router.set("/doctores/:id", async (req,res)=>{
+router.put("/doctores/:id", async (req,res)=>{
     const {doctor_name,doctor_cedula,doctor_especialidad,doctor_email} = req.body;
     if(doctor_name === "" || doctor_cedula==="" || doctor_especialidad===""|| doctor_email===""){
         res.send({
@@ -64,7 +64,7 @@ router.set("/doctores/:id", async (req,res)=>{
     
 } )
 
-router.delete("/doctotes/:id", async(req,res)=>{
+router.delete("/doctores/:id", async(req,res)=>{
     await Doctor.findByIdAndDelete({_id: req.params.id})
     .then(
         res.send({

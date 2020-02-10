@@ -44,8 +44,7 @@
           e.preventDefault()
           
           const url = e.target.attributes.href.value
-          axios.get(url).then( res=> document.querySelector('.content').innerHTML=res.data).catch(err => console.log(err))
-          
+          displayPage(url)
         })
       })
 
