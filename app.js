@@ -26,5 +26,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', require('./routes/'))
 app.use('/', require('./routes/DoctorRoutes'))
+app.use('/', require('./routes/RecepcionistaRoutes'))
 
 app.listen(3000, ()=> console.log('Server ready on http://localhost:3000'))

@@ -16,10 +16,22 @@ function getDoctorFormData(){
         }
 }
 
+function getRecepcionistaFormData(){
+    const recepcionista_name = document.querySelector('input[name="recepcionista_name"]').value
+    const recepcionista_correo = document.querySelector('input[name="recepcionista_correo"]').value
 
-async function GuardarDoctor(){
+    return {
+            recepcionista_name,
+            recepcionista_correo
+        }
+}
+
+
+
+
+async function GuardarRecepcionista(){
     const id = document.querySelector('input[name="doctor_id"]').value
-    if( id ) return EditarDoctor(id)
+    if( id ) return EditarRecepcionista(id)
 
     await axios.post('/doctores', getDoctorFormData()).then(res => {
         console.log(res.data.message)
@@ -34,7 +46,7 @@ async function GuardarDoctor(){
     })
 }
 
-function EditarDoctor(id){
+function EditarRecepcionista(id){
     axios.put('/doctores/'+id, getDoctorFormData()).then(res => {
         console.log(res.data.message)
         $('#exampleModal').modal('hide')
@@ -50,7 +62,7 @@ function EditarDoctor(id){
 
 
 
-function EliminarDoctor(id, name){
+function EliminarRecepcionista(id, name){
     Swal.fire({
         title: 'Estas seguro que deseas eliminar?',
         text: "Doctor: "+name,
@@ -93,3 +105,92 @@ function ShowDoctor(id){
     })
     .catch(err => console.log(err))
 }
+
+
+
+async function GuardarRecepcionista(){
+    const id = document.querySelector('input[name="recepcionista_id"]').value
+    if( id ) return EditarRecepcionista(id)
+console.log( getRecepcionistaFormData() );
+
+    await axios.post('/recepcionista', getRecepcionistaFormData()).then(res => {
+        console.log(res.data.message)
+        $('#recepcionistaModal').modal('hide')
+        if( res.data.status === 'done') {
+            Swal.fire({ icon: 'success', text: 'Se guardó con éxito' })
+            displayPage('/get/recepcionistaForm')
+        }
+        else if( res.data.status === 'error') Swal.fire({ icon: 'error', text: res.data.message })
+    }).catch(err => {
+        console.log(err)
+    })
+}
+
+function EditarRecepcionista(id){
+    axios.put('/recepcionista/'+id, getRecepcionistaFormData()).then(res => {
+        console.log(res.data.message)
+        $('#recepcionistaModal').modal('hide')
+        if( res.data.status === 'done') {
+            Swal.fire({ icon: 'success', text: 'Se guardó con éxito' })
+            displayPage('/get/recepcionistaForm')
+        }
+        else if( res.data.status === 'error') Swal.fire({ icon: 'error', text: res.data.message })
+    }).catch(err => {
+        console.log(err)
+    })
+}
+
+
+
+function EliminarRecepcionista(id, name){
+    Swal.fire({
+        title: 'Estas seguro que deseas eliminar?',
+        text: "Doctor: "+name,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, eliminar!'
+      }).then(async (result) => {
+        if (result.value) {
+            await axios.delete('/recepcionista/'+id)
+            Swal.fire(
+              'Eliminado!',
+              'Se eliminó con éxito.',
+              'success'
+            )
+            displayPage('/get/recepcionistaForm')
+        }
+      })
+
+
+
+
+}
+
+function ShowRecepcionista(id){
+    const url = `/recepcionista/${id}`
+    console.log(url)
+    axios.get(url)
+    .then(({data}) => {
+        console.log(data);
+        
+        if( data._id ){
+            document.querySelector('input[name="recepcionista_id"]').value = data._id
+            document.querySelector('input[name="recepcionista_name"]').value = data.nombre
+            document.querySelector('input[name="recepcionista_correo"]').value = data.correo
+        }else{
+            Swal.fire({icon: 'error', text:' No se encontró el doctor'})
+        }
+    })
+    .catch(err => console.log(err))
+}
+
+
+
+
+
+
+
+
+
