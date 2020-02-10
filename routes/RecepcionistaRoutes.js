@@ -1,30 +1,28 @@
 const router =require("express").Router();
-const Doctor = require("../models/Doctor")
+const Recepcionista = require("../models/Recepcionista")
 
-router.post("/doctores",async (req,res)=>{
-    const {doctor_name,doctor_cedula,doctor_especialidad,doctor_email} = req.body;
-    if(doctor_name === "" || doctor_cedula==="" || doctor_especialidad===""|| doctor_email===""){
-        return res.send({
+router.post("/recepcionista",async (req,res)=>{
+    const {recepcionista_name,recepcionista_correo} = req.body;
+    if(recepcionista_name === "" || recepcionista_correo ){
+        res.send({
             status:"error",
             message:"Favor de llenar todos los campos requeridos"
         })
     }
-    const doctor = await Doctor.findOne({cedula: doctor_cedula});
-    if(doctor){
-        return res.send({
+    const recepcionista = await Recepcionista.findOne({nombre: recepcionista_name});
+    if(Recepcionista){
+        res.send({
             status:"error",
-            message:"El doctor ya existe"
+            message:"Valor ya existe"
         })
     }
-    const newDoctor = await Doctor.create( 
-        {nombre: doctor_name,
-        cedula: doctor_cedula,
-        especialidad: doctor_especialidad,
-        correo: doctor_email})
+    const newRecepcionista = await Recepcionista.create( 
+        {nombre: recepcionista_name,
+        correo: recepcionista_correo})
         .then(
             res.send({
                 status:"done",
-                message:"Doctor Guardado"
+                message:"Guardado correctamente"
             })
         )
         .catch(
@@ -36,19 +34,17 @@ router.post("/doctores",async (req,res)=>{
 
 })
 
-router.put("/doctores/:id", async (req,res)=>{
-    const {doctor_name,doctor_cedula,doctor_especialidad,doctor_email} = req.body;
-    if(doctor_name === "" || doctor_cedula==="" || doctor_especialidad===""|| doctor_email===""){
+router.put("/recepcionista/:id", async (req,res)=>{
+    const {recepcionista_name,recepcionista_correo} = req.body;
+    if(recepcionista_name === "" || recepcionista_correo===""){
         res.send({
             status:"error",
             message:"Favor de llenar todos los campos requeridos"
         })
     }
-    const doctor = await Doctor.findByIdAndUpdate({_id: req.params.id},
-        {nombre: doctor_name,
-        cedula: doctor_cedula,
-        especialidad: doctor_especialidad,
-        correo: doctor_email})
+    const recepcionista = await Recepcionista.findByIdAndUpdate({_id: req.params.id},
+        {nombre: recepcionista_name,
+        correo: recepcionista_correo})
         .then(
             res.send({
                 status:"done",

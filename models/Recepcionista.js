@@ -1,6 +1,6 @@
 const {model , Schema}=require("mongoose");
 
-const doctorSchema = new Schema(
+const recepcionistaSchema = new Schema(
     {
         nombre:String,
         correo:String
@@ -11,4 +11,4 @@ const doctorSchema = new Schema(
     }
 );
 
-module.exports = model("Doctor",doctorSchema);
+module.exports = model("Recepcionista",recepcionistaSchema);
