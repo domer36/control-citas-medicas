@@ -28,7 +28,7 @@ function getRecepcionistaFormData(){
 
 
 function getPacienteFormData(){
-const patient_nombre = document.querySelector('input[name="patient_nombre"]').value
+const patient_name = document.querySelector('input[name="patient_name"]').value
 const patient_curp = document.querySelector('input[name="patient_curp"]').value
 const patient_fechaNacimiento = document.querySelector('input[name="patient_fechaNacimiento"]').value
 const patient_telefono = document.querySelector('input[name="patient_telefono"]').value
@@ -36,16 +36,18 @@ const patient_direccion = document.querySelector('input[name="patient_direccion"
 const patient_tipoSangre = document.querySelector('input[name="patient_tipoSangre"]').value
 const patient_estadoCivil = document.querySelector('input[name="patient_estadoCivil"]').value
 const patient_correo = document.querySelector('input[name="patient_correo"]').value
+const patient_doctor = document.querySelector('input[name="patient_doctor"]').value
 
 return {
-    patient_nombre,
+    patient_name,
     patient_curp,
     patient_fechaNacimiento,
     patient_telefono,
     patient_direccion,
     patient_tipoSangre,
     patient_estadoCivil,
-    patient_correo
+    patient_correo,
+    patient_doctor
 }
 }
 
@@ -290,7 +292,14 @@ function ShowPaciente(id){
         if( data._id ){
             document.querySelector('input[name="patient_id"]').value = data._id
             document.querySelector('input[name="patient_name"]').value = data.nombre
+            document.querySelector('input[name="patient_curp"]').value = data.curp
+            document.querySelector('input[name="patient_fechaNacimiento"]').value = data.fechaNacimiento.split('T')[0]
+            document.querySelector('input[name="patient_telefono"]').value = data.telefono
+            document.querySelector('input[name="patient_direccion"]').value = data.direccion
+            document.querySelector('input[name="patient_tipoSangre"]').value = data.tipoSangre
+            document.querySelector('input[name="patient_estadoCivil"]').value = data.estadoCivil
             document.querySelector('input[name="patient_correo"]').value = data.correo
+            document.querySelector('input[name="patient_doctor"]').value = data.doctor
         }else{
             Swal.fire({icon: 'error', text:' No se encontró el doctor'})
         }
