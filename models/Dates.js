@@ -11,7 +11,7 @@ const datesSchema = new Schema(
         },
         paciente:{
             type:Schema.Types.ObjectId,
-            ref:"patients"
+            ref:"Patient"
         },
         peso:Number,
         estatura:Number,
@@ -20,7 +20,7 @@ const datesSchema = new Schema(
         tratamiento:String,
         doctor:{
             type:Schema.Types.ObjectId,
-            ref:"doctors"
+            ref:"Doctor"
         }
     },
     {

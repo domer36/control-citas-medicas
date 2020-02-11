@@ -91,7 +91,8 @@ router.delete("/doctores/:id", async(req,res)=>{
 })
 
 router.get("/doctores/:id",async(req,res)=>{
-    const doctor= await Doctor.findById(req.params.id)
+    const doctor= await Doctor.findById(req.params.id).populate('especialidad')
+    
     doctor.status="done";
     doctor.message="Doctor Encontrado"
     if(doctor) return res.send(doctor)

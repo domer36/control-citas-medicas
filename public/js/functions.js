@@ -2,10 +2,24 @@ function displayPage(url){
     axios.get(url).then( res=> document.querySelector('.content').innerHTML=res.data).catch(err => console.log(err))
 }
 
+function ObtenerDoctoresEspecialidad(e) {
+    console.log(e.value)
+    axios.get('/especialidad/'+e.value).then( doctors => {
+        const select = document.querySelector('select[name="cita_doctor"]')
+        select.innerHTML = ''
+        doctors.data.forEach( doctor => {
+            const option = document.createElement('option')
+            option.value = doctor._id
+            option.innerText = doctor.nombre
+            select.appendChild(option)
+        })
+    })
+}
+
 function getDoctorFormData(){
     const doctor_name = document.querySelector('input[name="doctor_name"]').value
     const doctor_cedula = document.querySelector('input[name="doctor_cedula"]').value
-    const doctor_especialidad = document.querySelector('input[name="doctor_especialidad"]').value
+    const doctor_especialidad = document.querySelector('[name="doctor_especialidad"]').value
     const doctor_email = document.querySelector('input[name="doctor_email"]').value
 
     return {
@@ -36,7 +50,6 @@ const patient_direccion = document.querySelector('input[name="patient_direccion"
 const patient_tipoSangre = document.querySelector('input[name="patient_tipoSangre"]').value
 const patient_estadoCivil = document.querySelector('input[name="patient_estadoCivil"]').value
 const patient_correo = document.querySelector('input[name="patient_correo"]').value
-const patient_doctor = document.querySelector('input[name="patient_doctor"]').value
 
 return {
     patient_name,
@@ -46,8 +59,7 @@ return {
     patient_direccion,
     patient_tipoSangre,
     patient_estadoCivil,
-    patient_correo,
-    patient_doctor
+    patient_correo
 }
 }
 
@@ -116,7 +128,7 @@ function ShowDoctor(id){
             document.querySelector('input[name="doctor_id"]').value = data._id
             document.querySelector('input[name="doctor_name"]').value = data.nombre
             document.querySelector('input[name="doctor_cedula"]').value = data.cedula
-            document.querySelector('input[name="doctor_especialidad"]').value = data.especialidad
+            document.querySelector('[name="doctor_especialidad"]').value = data.especialidad._id
             document.querySelector('input[name="doctor_email"]').value = data.correo
         }else{
             Swal.fire({icon: 'error', text:' No se encontró el doctor'})
@@ -299,7 +311,7 @@ function ShowPaciente(id){
             document.querySelector('input[name="patient_tipoSangre"]').value = data.tipoSangre
             document.querySelector('input[name="patient_estadoCivil"]').value = data.estadoCivil
             document.querySelector('input[name="patient_correo"]').value = data.correo
-            document.querySelector('input[name="patient_doctor"]').value = data.doctor
+        
         }else{
             Swal.fire({icon: 'error', text:' No se encontró el paciente'})
         }

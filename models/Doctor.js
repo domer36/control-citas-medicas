@@ -7,7 +7,10 @@ const doctorSchema = new Schema(
             type:String,
             unique:true
         },
-        especialidad:String,
+        especialidad: {
+            type: Schema.Types.ObjectId,
+            ref: 'Especialidade'
+        },
         correo:String
     },
     {

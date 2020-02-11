@@ -16,7 +16,7 @@
       <tr class="doctor-{{indice}}">
         <td>{{ doctor.nombre }}</td>
         <td>{{ doctor.cedula }}</td>
-        <td>{{ doctor.especialidad }}</td>
+        <td>{{ doctor.especialidad.nombre }}</td>
         <td>{{ doctor.correo }}</td>
         <td><button class="btn btn-warning" data-toggle="modal" data-target="#exampleModal" onclick="ShowDoctor('{{doctor._id}}')">Editar</button></td>
         <td><button class="btn btn-danger" onclick="EliminarDoctor('{{doctor._id}}','{{doctor.nombre}}')">Eliminar</button></td>
@@ -49,7 +49,14 @@
           </div>
           <div class="form-group">
             <label for="doctor-especialidad" class="col-form-label">Especialidad:</label>
-            <input type="text" class="form-control" name="doctor_especialidad" required>
+
+            <select name="doctor_especialidad" required>
+              <option>Selecciona una especialidad</option>
+              {{#each especialidades}}
+                <option value="{{this._id}}">{{this.nombre}}</option>
+                {{/each}}
+            </select>
+            {{!-- <input type="text" class="form-control" name="doctor_especialidad" required> --}}
           </div>
           <div class="form-group">
             <label for="doctor-email" class="col-form-label">Correo electrónico:</label>
