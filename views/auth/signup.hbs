@@ -1,15 +1,15 @@
-  <form action="/signup" method="POST">
-    <h2>Sign up</h2>
+  <form action="/auth/signup" method="post" enctype="multipart/form-data">
+    <h2>Alta Usuarios</h2>
     <label>User</label>
-    <input type="text" name="name" placeholder="Kanye" required>
+    <input type="text" name="username"  required>
     <label>Password</label>
     <input type="password" name="password" required>
-    <input type="submit" value="Signup">
-    <select name="patient_doctor" required>
+    <select name="role" required>
         <option>Que tipo de rol es el alta</option>
-            <option value="DOCTOR">Doctor</option>
-            <option value="RECEPCIONISTA">RECEPCIONISTA</option>
+        <option value="DOCTOR">Doctor</option>
+        <option value="RECEPCIONISTA">RECEPCIONISTA</option>
     </select>
+    <input type="submit" value="Alta">
     <p class="msg">{{msg}}</p>
     <p class="err">{{err}}</p>
   </form>

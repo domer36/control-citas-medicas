@@ -1,6 +1,6 @@
 const router =require("express").Router();
 const User = require("../models/User");
-const passport = require("passport");
+const passport = require("../config/passport");
 
 router.get("/signup",(req,res)=>res.render("auth/signup"))
 
