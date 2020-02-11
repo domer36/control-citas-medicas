@@ -5,21 +5,11 @@ router.post("/dates",async (req,res)=>{
     const {fechaCita,
            hora,
            paciente,
-           peso,
-           estatura,
-           precion,
-           diagnostico,
-           tratamiento,
            doctor,
            especialidad} = req.body;
     if(fechaCita==="" || 
        hora==="" || 
        paciente==="" || 
-       peso==="" ||
-       estatura==="" ||
-       precion==="" || 
-       diagnostico==="" || 
-       tratamiento==="" ||
        doctor==="" ||
        especialidad===""){
         return res.send({
@@ -39,11 +29,6 @@ router.post("/dates",async (req,res)=>{
             fechaCita,
             hora,
             paciente,
-            peso,
-            estatura,
-            precion,
-            diagnostico,
-            tratamiento,
             doctor,
             especialidad
         })
@@ -67,21 +52,11 @@ router.put("/dates/:id", async (req,res)=>{
         fechaCita,
         hora,
         paciente,
-        peso,
-        estatura,
-        precion,
-        diagnostico,
-        tratamiento,
         doctor,
         especialidad} = req.body;
     if(fechaCita==="" || 
        hora==="" || 
        paciente==="" || 
-       peso==="" ||
-       estatura==="" ||
-       precion==="" || 
-       diagnostico==="" || 
-       tratamiento==="" ||
        doctor==="" ||
        especialidad===""){
         return res.send({
@@ -100,11 +75,6 @@ router.put("/dates/:id", async (req,res)=>{
             fechaCita,
             hora,
             paciente,
-            peso,
-            estatura,
-            precion,
-            diagnostico,
-            tratamiento,
             doctor,
             especialidad})
         .then(
@@ -140,7 +110,7 @@ router.delete("/dates/:id", async(req,res)=>{
 })
 
 router.get("/dates/:id",async(req,res)=>{
-    const dates= await Dates.findById(req.params.id)
+    const dates= await Dates.findById(req.params.id).populate('paciente').populate('doctor').populate('especialidad')
     dates.status="done";
     dates.message="Paciente Encontrado"
     if(dates) return res.send(dates)
@@ -157,5 +127,5 @@ module.exports = router
 //     else return{status:"error",
 //                 message:"No se encontro la cita"}
 // })
-module.exports = router
+//.exports = router
 

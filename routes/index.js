@@ -24,7 +24,8 @@ router.get('/get/pacienteForm', async (req,res) => {
     res.render('register/paciente', {pacientes, doctores})
 })
 router.get('/get/citasForm', async (req,res) => {
-    const citas = await Cita.find()
+    const citas = await Cita.find().populate('paciente').populate('doctor').populate('especialidad')
+    
     const pacientes = await Pacientes.find()
     const doctores = await Doctor.find()
     const especialidades = await Especialidad.find().sort({nombre: 1})

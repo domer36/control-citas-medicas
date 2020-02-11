@@ -2,7 +2,7 @@ const {model , Schema}=require("mongoose");
 
 const datesSchema = new Schema(
     {
-        fechaCita:Date,
+        fechaCita:String,
         hora:{
             type: String,
             min:1,
@@ -13,11 +13,15 @@ const datesSchema = new Schema(
             type:Schema.Types.ObjectId,
             ref:"Patient"
         },
-        peso:Number,
-        estatura:Number,
+        peso:String,
+        estatura:String,
         precion:String,
         diagnostico:String,
         tratamiento:String,
+        especialidad: {
+            type: Schema.Types.ObjectId,
+            ref: 'Especialidade'
+        },
         doctor:{
             type:Schema.Types.ObjectId,
             ref:"Doctor"
