@@ -84,7 +84,13 @@
 </div>
 <div class="form-group">
   <label class="col-form-label">Doctor</label>
-  <input type="text" class="form-control" name="patient_doctor" required>
+
+  <select name="patient_doctor" required>
+    <option>Selecciona una opción</option>
+    {{#each doctores as |doctor|}}
+      <option value="doctor._id">{{doctor.nombre}}</option>
+    {{/each}}
+  </select>
 </div>
 
 

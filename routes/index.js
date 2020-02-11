@@ -15,8 +15,9 @@ router.get('/get/recepcionistaForm', async (req,res) => {
 })
 router.get('/get/pacienteForm', async (req,res) => {
     const pacientes = await Pacientes.find()
+    const doctores = await Doctor.find()
     console.log(pacientes)
-    res.render('register/paciente', {pacientes})
+    res.render('register/paciente', {pacientes, doctores})
 })
 
 
