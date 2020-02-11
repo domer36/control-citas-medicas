@@ -9,15 +9,19 @@ const datesSchema = new Schema(
             max:7,
             required:true
         },
-        pacienteId:{
+        paciente:{
             type:Schema.Types.ObjectId,
-            ref:"Patient"
+            ref:"patients"
         },
         peso:Number,
         estatura:Number,
         precion:String,
         diagnostico:String,
-        tratamiento:String
+        tratamiento:String,
+        doctor:{
+            type:Schema.Types.ObjectId,
+            ref:"doctors"
+        }
     },
     {
         timestamps:true,

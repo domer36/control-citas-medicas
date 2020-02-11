@@ -9,8 +9,7 @@ router.post("/patient",async (req,res)=>{
            patient_direccion,
            patient_tipoSangre,
            patient_estadoCivil,
-           patient_correo,
-           patient_doctor} = req.body;
+           patient_correo} = req.body;
     if(patient_name==="" || 
        patient_curp==="" || 
        patient_fechaNacimiento==="" || 
@@ -18,8 +17,7 @@ router.post("/patient",async (req,res)=>{
        patient_direccion==="" ||
        patient_tipoSangre==="" || 
        patient_estadoCivil==="" || 
-       patient_correo==="" || 
-       patient_doctor ===""){
+       patient_correo===""){
         return res.send({
             status:"error",
             message:"Favor de llenar todos los campos requeridos"
@@ -32,12 +30,6 @@ router.post("/patient",async (req,res)=>{
             message:"El paciente ya existe"
         })
     }
-    if(await Patient.findOne(patient_doctor).populate(_id)){
-        return res.send({
-            status:"error",
-            message:"El Doctor no existe"
-        })
-    }
     await Patient.create( 
         {
             nombre:patient_name,
@@ -47,8 +39,7 @@ router.post("/patient",async (req,res)=>{
             direccion:patient_direccion,
             tipoSangre:patient_tipoSangre,
             estadoCivil:patient_estadoCivil,
-            correo:patient_correo,
-            doctorId:patient_doctor
+            correo:patient_correo
         })
         .then(
             res.send({
@@ -74,8 +65,7 @@ router.put("/patient/:id", async (req,res)=>{
         patient_direccion,
         patient_tipoSangre,
         patient_estadoCivil,
-        patient_correo,
-        patient_doctor} = req.body;
+        patient_correo} = req.body;
     if(patient_name==="" || 
        patient_curp==="" || 
        patient_fechaNacimiento==="" || 
@@ -83,8 +73,7 @@ router.put("/patient/:id", async (req,res)=>{
        patient_direccion==="" ||
        patient_tipoSangre==="" || 
        patient_estadoCivil==="" || 
-       patient_correo==="" || 
-       patient_doctor ===""){
+       patient_correo===""){
     return res.send({
         status:"error",
         message:"Favor de llenar todos los campos requeridos"
@@ -105,9 +94,7 @@ router.put("/patient/:id", async (req,res)=>{
             direccion:patient_direccion,
             tipoSangre:patient_tipoSangre,
             estadoCivil:patient_estadoCivil,
-            correo:patient_correo,
-            doctorId:patient_doctor
-        })
+            correo:patient_correo})
         .then(
             res.send({
                 status:"done",

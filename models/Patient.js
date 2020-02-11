@@ -10,10 +10,6 @@ const patientSchema = new Schema(
         tipoSangre:String,
         estadoCivil:String,
         correo:String,
-        doctorId:{
-            type:Schema.Types.ObjectId,
-            ref:"doctors"
-        }
     },
     {
         timestamps:true,
