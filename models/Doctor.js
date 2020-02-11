@@ -3,7 +3,10 @@ const {model , Schema}=require("mongoose");
 const doctorSchema = new Schema(
     {
         nombre:String,
-        cedula:String,
+        cedula:{
+            type:String,
+            unique:true
+        },
         especialidad:String,
         correo:String
     },

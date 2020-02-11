@@ -2,7 +2,10 @@ const router =require("express").Router();
 const Doctor = require("../models/Doctor")
 
 router.post("/doctores",async (req,res)=>{
-    const {doctor_name,doctor_cedula,doctor_especialidad,doctor_email} = req.body;
+    const {doctor_name,
+           doctor_cedula,
+           doctor_especialidad,
+           doctor_email} = req.body;
     if(doctor_name === "" || doctor_cedula==="" || doctor_especialidad===""|| doctor_email===""){
         return res.send({
             status:"error",
@@ -42,6 +45,12 @@ router.put("/doctores/:id", async (req,res)=>{
         return res.send({
             status:"error",
             message:"Favor de llenar todos los campos requeridos"
+        })
+    }
+    if(await Doctor.findOne({cedula: doctor_cedula})){
+        return res.send({
+            status:"error",
+            message:"El doctor ya existe"
         })
     }
     const doctor = await Doctor.findByIdAndUpdate({_id: req.params.id},

@@ -9,7 +9,7 @@ router.post("/recepcionista",async (req,res)=>{
             message:"Favor de llenar todos los campos requeridos"
         })
     }
-    const recepcionista = await Recepcionista.findOne({nombre: recepcionista_name});//checar tambien correo
+    const recepcionista = await Recepcionista.findOne({nombre:recepcionista_name,correo:recepcionista_correo});
     if(recepcionista){
         return res.send({
             status:"error",
@@ -40,6 +40,12 @@ router.put("/recepcionista/:id", async (req,res)=>{
         return res.send({
             status:"error",
             message:"Favor de llenar todos los campos requeridos"
+        })
+    }
+    if(await Recepcionista.findOne({nombre:recepcionista_name,correo:recepcionista_correo})){
+        return res.send({
+            status:"error",
+            message:"Valor ya existe"
         })
     }
     const recepcionista = await Recepcionista.findByIdAndUpdate({_id: req.params.id},

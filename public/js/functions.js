@@ -56,7 +56,7 @@ return {
 
 async function GuardarDoctor(){
     const id = document.querySelector('input[name="doctor_id"]').value
-    if( id ) return EditarRecepcionista(id)
+    if( id ) return EditarDoctor(id)
 
     await axios.post('/doctores', getDoctorFormData()).then(res => {
         console.log(res.data.message)
@@ -71,7 +71,7 @@ async function GuardarDoctor(){
     })
 }
 
-function EditarRecepcionista(id){
+function EditarDoctor(id){
     axios.put('/doctores/'+id, getDoctorFormData()).then(res => {
         console.log(res.data.message)
         $('#exampleModal').modal('hide')
@@ -85,7 +85,7 @@ function EditarRecepcionista(id){
     })
 }
 
-function EliminarRecepcionista(id, name){
+function EliminarDoctor(id, name){
     Swal.fire({
         title: 'Estas seguro que deseas eliminar?',
         text: "Doctor: "+name,
@@ -164,7 +164,7 @@ function EditarRecepcionista(id){
 function EliminarRecepcionista(id, name){
     Swal.fire({
         title: 'Estas seguro que deseas eliminar?',
-        text: "Doctor: "+name,
+        text: "Recepcionista: "+name,
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -199,7 +199,7 @@ function ShowRecepcionista(id){
             document.querySelector('input[name="recepcionista_name"]').value = data.nombre
             document.querySelector('input[name="recepcionista_correo"]').value = data.correo
         }else{
-            Swal.fire({icon: 'error', text:' No se encontró el doctor'})
+            Swal.fire({icon: 'error', text:' No se encontró el asistente'})
         }
     })
     .catch(err => console.log(err))
@@ -259,7 +259,7 @@ function EditarPaciente(id){
 function EliminarPaciente(id, name){
     Swal.fire({
         title: 'Estas seguro que deseas eliminar?',
-        text: "Doctor: "+name,
+        text: "Paciente: "+name,
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -301,7 +301,7 @@ function ShowPaciente(id){
             document.querySelector('input[name="patient_correo"]').value = data.correo
             document.querySelector('input[name="patient_doctor"]').value = data.doctor
         }else{
-            Swal.fire({icon: 'error', text:' No se encontró el doctor'})
+            Swal.fire({icon: 'error', text:' No se encontró el paciente'})
         }
     })
     .catch(err => console.log(err))
