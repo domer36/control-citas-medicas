@@ -1,0 +1,102 @@
+<div class="container mt-5">
+    <h2>Pacientes</h2>
+    <hr>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#pacienteModal" data-whatever="@mdo">Agregar Paciente</button>
+<table class="table table-sm">
+  <thead>
+    <tr>
+      <th scope="col">Nombre</th>
+      <th scope="col">CURP</th>
+      <th scope="col">Fecha de Nacimiento</th>
+      <th scope="col">Telefono</th>
+      <th scope="col">Direccion</th>
+      <th scope="col">Tipo Sangre</th>
+      <th scope="col">Estado Civil</th>      
+      <th scope="col">Correo</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+      {{#each pacientes as |paciente|}}
+      <tr class="paciente-{{indice}}">
+        <td>{{ paciente.nombre }}</td>
+        <td>{{ paciente.curp }}</td>
+        <td>{{ paciente.fechaNacimiento }}</td>
+        <td>{{ paciente.telefono }}</td>
+        <td>{{ paciente.direccion }}</td>
+        <td>{{ paciente.tipoSangre }}</td>
+        <td>{{ paciente.estadoCivil }}</td>
+        <td>{{ paciente.correo }}</td>
+        <td><button class="btn btn-warning" data-toggle="modal" data-target="#pacienteModal" onclick="ShowPaciente('{{paciente._id}}')">Editar</button></td>
+        <td><button class="btn btn-danger" onclick="EliminarPaciente('{{paciente._id}}','{{paciente.nombre}}')">Eliminar</button></td>
+        </tr>
+      {{/each}}
+  </tbody>
+</table>
+</div>
+
+
+<div class="modal fade" id="pacienteModal" tabindex="-1" role="dialog" aria-labelledby="pacienteModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="pacienteModalLabel">Datos del Paciente</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+            <input type="hidden" class="form-control" name="patient_id">
+
+<div class="form-group">
+  <label class="col-form-label">Nombre</label>
+  <input type="text" class="form-control" name="patient_nombre">
+</div>
+<div class="form-group">
+  <label class="col-form-label">CURP</label>
+  <input type="text" class="form-control" name="patient_curp">
+</div>
+<div class="form-group">
+  <label class="col-form-label">Fecha Nacimiento</label>
+  <input type="text" class="form-control" name="patient_fechaNacimiento">
+</div>
+<div class="form-group">
+  <label class="col-form-label">Telefono</label>
+  <input type="text" class="form-control" name="patient_telefono">
+</div>
+<div class="form-group">
+  <label class="col-form-label">Direccion</label>
+  <input type="text" class="form-control" name="patient_direccion">
+</div>
+<div class="form-group">
+  <label class="col-form-label">Dipo Sangre</label>
+  <input type="text" class="form-control" name="patient_tipoSangre">
+</div>
+<div class="form-group">
+  <label class="col-form-label">Estado Civil</label>
+  <input type="text" class="form-control" name="patient_estadoCivil">
+</div>
+<div class="form-group">
+  <label class="col-form-label">Correo</label>
+  <input type="text" class="form-control" name="patient_correo">
+</div>
+<div class="form-group">
+  <label class="col-form-label">Docotr</label>
+  <input type="text" class="form-control" name="patient_doctor">
+</div>
+
+
+
+
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secundary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="btnGuardarPaciente" onclick="GuardarPaciente()">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
