@@ -54,7 +54,7 @@ return {
 
 
 
-async function GuardarRecepcionista(){
+async function GuardarDoctor(){
     const id = document.querySelector('input[name="doctor_id"]').value
     if( id ) return EditarRecepcionista(id)
 
