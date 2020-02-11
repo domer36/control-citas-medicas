@@ -2,10 +2,24 @@ const router =require("express").Router();
 const Patient = require("../models/Patient")
 
 router.post("/patient",async (req,res)=>{
-    const {patient_name,patient_curp,patient_fechaNacimiento,patient_direccion,patient_tipoSangre,
-           patient_estadoCivil,patient_correo,patient_doctor} = req.body;
-    if(patient_name==="" || patient_curp==="" || patient_fechaNacimiento==="" ||patient_direccion==="" ||
-       patient_tipoSangre==="" || patient_estadoCivil==="" || patient_correo==="" || patient_doctor ===""){
+    const {patient_name,
+           patient_curp,
+           patient_fechaNacimiento,
+           patient_telefono,
+           patient_direccion,
+           patient_tipoSangre,
+           patient_estadoCivil,
+           patient_correo,
+           patient_doctor} = req.body;
+    if(patient_name==="" || 
+       patient_curp==="" || 
+       patient_fechaNacimiento==="" || 
+       patient_telefono==="" ||
+       patient_direccion==="" ||
+       patient_tipoSangre==="" || 
+       patient_estadoCivil==="" || 
+       patient_correo==="" || 
+       patient_doctor ===""){
         return res.send({
             status:"error",
             message:"Favor de llenar todos los campos requeridos"
@@ -23,7 +37,7 @@ router.post("/patient",async (req,res)=>{
             nombre:patient_name,
             curp:patient_curp,
             fechaNacimiento:patient_fechaNacimiento,
-            telefono:patient_fechaNacimiento,
+            telefono:patient_telefono,
             direccion:patient_direccion,
             tipoSangre:patient_tipoSangre,
             estadoCivil:patient_estadoCivil,
@@ -46,21 +60,36 @@ router.post("/patient",async (req,res)=>{
 })
 
 router.put("/patient/:id", async (req,res)=>{
-    const {patient_name,patient_curp,patient_fechaNacimiento,patient_direccion,patient_tipoSangre,
-           patient_estadoCivil,patient_correo,patient_doctor} = req.body;
-    if(patient_name==="" || patient_curp==="" || patient_fechaNacimiento==="" ||patient_direccion==="" ||
-       patient_tipoSangre==="" || patient_estadoCivil==="" || patient_correo==="" || patient_doctor ===""){
+    const {
+        patient_name,
+        patient_curp,
+        patient_fechaNacimiento,
+        patient_telefono,
+        patient_direccion,
+        patient_tipoSangre,
+        patient_estadoCivil,
+        patient_correo,
+        patient_doctor} = req.body;
+    if(patient_name==="" || 
+       patient_curp==="" || 
+       patient_fechaNacimiento==="" || 
+       patient_telefono==="" ||
+       patient_direccion==="" ||
+       patient_tipoSangre==="" || 
+       patient_estadoCivil==="" || 
+       patient_correo==="" || 
+       patient_doctor ===""){
     return res.send({
         status:"error",
         message:"Favor de llenar todos los campos requeridos"
-    })
- }
+        })
+    }
     await Patient.findByIdAndUpdate({_id: req.params.id},
         {   
             nombre:patient_name,
             curp:patient_curp,
             fechaNacimiento:patient_fechaNacimiento,
-            telefono:patient_fechaNacimiento,
+            telefono:patient_telefono,
             direccion:patient_direccion,
             tipoSangre:patient_tipoSangre,
             estadoCivil:patient_estadoCivil,
@@ -102,7 +131,7 @@ router.delete("/patient/:id", async(req,res)=>{
 router.get("/patient/:id",async(req,res)=>{
     const patient= await Patient.findById(req.params.id)
     patient.status="done";
-    patient.message="Doctor Encontrado"
+    patient.message="Paciente Encontrado"
     if(patient) return res.send(patient)
     else return{status:"error",
                 message:"No se encontro el paciente"}
