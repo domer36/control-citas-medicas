@@ -18,7 +18,7 @@ router.post("/patient",async (req,res)=>{
             message:"El paciente ya existe"
         })
     }
-    const newDoctor = await Doctor.create( 
+    await Patient.create( 
         {
             nombre:patient_name,
             curp:patient_curp,
@@ -55,7 +55,7 @@ router.put("/patient/:id", async (req,res)=>{
         message:"Favor de llenar todos los campos requeridos"
     })
  }
-    const patient = await Patient.findByIdAndUpdate({_id: req.params.id},
+    await Patient.findByIdAndUpdate({_id: req.params.id},
         {   
             nombre:patient_name,
             curp:patient_curp,
