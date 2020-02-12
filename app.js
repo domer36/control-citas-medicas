@@ -42,4 +42,6 @@ app.use('/', require('./routes/RecepcionistaRoutes'))
 app.use('/', require('./routes/PatientRoutes'))
 app.use('/',require('./routes/UserRoutes'))
 app.use('/',require('./routes/DatesRoutes'))
-app.listen(3000, ()=> console.log('Server ready on http://localhost:3000'))
+
+module.exports = app
+//app.listen(pro, ()=> console.log('Server ready on http://localhost:3000'))
