@@ -24,7 +24,8 @@ router.post("/auth/signup", async (req,res)=>{
     const newUser=await User.register({email,role},
                          password);
     console.log(newUser);
-    res.redirect("/auth/login");    
+    res.send({ status: "done"})
+    //res.redirect("/auth/login");    
 })
 
 
@@ -32,12 +33,19 @@ router.get("/login",async(req,res)=>res.render("auth/login"));
 
 router.post("/auth/login",passport.authenticate("local",{
     successRedirect:"/",
-    failureRedirect:"/auth/login"})
+    failureRedirect:"/login"})
 )
 
 router.get("/logout",async(req,res,next)=>{
     req.logOut();
     res.redirect("/login")
+})
+
+.get('/user/:id', async (req, res) => {
+    const usuario = await User.findById( req.params.id)
+    console.log(usuario);
+
+    res.send(usuario)
 })
 
 module.exports = router

@@ -4,6 +4,7 @@ const Recepcionista = require('../models/Recepcionista')
 const Pacientes = require('../models/Patient')
 const Cita = require('../models/Dates')
 const Especialidad = require('../models/Especialidades')
+const Usuario = require('../models/User')
 
 //router.get('/', (req,res) => res.render('index'))
 router.get('/get/doctorForm', async (req,res) => {
@@ -35,11 +36,30 @@ router.get('/get/citasForm', async (req,res) => {
     res.render('register/citas', {citas,pacientes,especialidades})
 })
 
+
+router.get('/get/usuariosForm', async (req,res) => {
+    const usuarios = await Usuario.find()
+
+    res.render('register/usuarios', {usuarios})
+})
+
 .get('/especialidad/:id', async (req, res)=>{
     const doctores = await Doctor.find({especialidad: req.params.id}, {_id:1,nombre:1})
     res.send(doctores)
     console.log(doctores);
     
+})
+
+.put('/user/:id', async (req, res)=>{
+    const {email, role}= req.body
+    const usuario = await Usuario.findByIdAndUpdate(req.params.id, {email, role})
+    if(usuario) res.send({status: 'done'})
+    else res.send({status: 'error'})
+})
+
+.delete('/user/:id', async (req, res) => {
+    await Usuario.findByIdAndDelete( req.params.id )
+    res.send({status: 'done'})
 })
 
 

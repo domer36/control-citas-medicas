@@ -80,6 +80,14 @@ function getCitaFormData(){
         }
 }
 
+function getUsuarioFormData(){
+    email = document.querySelector('input[name="email"]').value
+    password = document.querySelector('input[name="password"]').value
+    role = document.querySelector('select[name="role"]').value
+
+    return { email,password, role }
+}
+
 
 
 
@@ -357,10 +365,8 @@ function ShowPaciente(id){
 async function GuardarCita(){
     const id = document.querySelector('input[name="cita_id"]').value
     if( id ) return EditarCita(id)
-console.log( 'getting', getCitaFormData() );
 
     await axios.post('/dates', getCitaFormData()).then(res => {
-        console.log(res.data.message)
         $('#citasModal').modal('hide')
         if( res.data.status === 'done') {
             Swal.fire({ icon: 'success', text: 'Se guardó con éxito' })
@@ -433,4 +439,62 @@ function ShowCita(id){
         }
     })
     .catch(err => console.log(err))
+}
+
+
+async function GuardarUsuario(){
+    id = document.querySelector('input[name="usuario_id"]').value
+    if(id) return ActualizarUsuario(id)
+
+    const {data} = await axios.post('/auth/signup', getUsuarioFormData())
+    $('#usuarioModal').modal('hide')
+    if( data.status === 'done' ){
+        Swal.fire({icon: 'success', text: 'El usuario se guardó con éxito'})
+        displayPage('/get/usuariosForm')
+    }else{
+        Swal.fire({icon: 'error', text: 'Ocurrio un error al guardarel usuario.'})
+    }
+
+}
+
+async function ActualizarUsuario(id){
+    const {data} = await axios.put('/user/'+id, getUsuarioFormData())
+    $('#usuarioModal').modal('hide')
+    if( data.status === 'done' ){
+        Swal.fire({icon: 'success', text: 'El usuario se guardó con éxito'})
+        displayPage('/get/usuariosForm')
+    }else{
+        Swal.fire({icon: 'error', text: 'Ocurrio un error al guardarel usuario.'})
+    }
+
+}
+
+async function EliminarUsuario(id){
+    Swal.fire({
+        title: 'Estas seguro que deseas eliminar usuario?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, eliminar!'
+      }).then(async (result) => {
+        if (result.value) {
+            await axios.delete('/user/'+id)
+            Swal.fire(
+              'Eliminado!',
+              'Se eliminó con éxito.',
+              'success'
+            )
+            displayPage('/get/usuariosForm')
+        }
+      })
+}
+
+
+
+async function ShowUsuario(id){
+    const {data} = await axios.get('/user/'+ id)
+    document.querySelector('input[name="usuario_id"]').value = data._id
+    document.querySelector('input[name="email"]').value = data.email
+    document.querySelector('select[name="role"]').value = data.role    
 }
