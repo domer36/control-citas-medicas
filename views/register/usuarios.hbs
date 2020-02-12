@@ -1,0 +1,66 @@
+<div class="container mt-5">
+    <h2>Usuarios</h2>
+    <hr>
+    <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#usuarioModal" data-whatever="@mdo">Agregar Usuario</button>
+<table class="table table-sm">
+  <thead>
+    <tr>
+      <th scope="col">Nombre de Usuario</th>
+      <th scope="col">Rol</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+      {{#each usuarios as |usuario|}}
+      <tr class="usuario-{{@index}}">
+        <td>{{ usuario.email }}</td>
+        <td>{{ usuario.role }}</td>
+        <td><button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#usuarioModal" onclick="ShowUsuario('{{usuario._id}}')">Editar</button></td>
+        <td><button class="btn btn-danger btn-sm" onclick="EliminarUsuario('{{usuario._id}}','{{usuario.nombre}}')">Eliminar</button></td>
+        </tr>
+      {{/each}}
+  </tbody>
+</table>
+</div>
+
+
+<div class="modal fade" id="usuarioModal" tabindex="-1" role="dialog" aria-labelledby="usuarioModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="usuarioModalLabel">Datos del Usuario</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+            <input type="hidden" class="form-control" name="usuario_id">
+          <div class="form-group">
+            <label for="usuario-email" class="col-form-label">Nombre de Usuario:</label>
+            <input type="text" class="form-control" name="email" required>
+          </div>
+
+          <div class="form-group">
+            <label for="usuario-password" class="col-form-label">Password:</label>
+            <input type="password" class="form-control" name="password" required>
+          </div>
+
+        <div class="form-group">
+            <select class="form-control" name="role" required>
+                <option>Selecciona un rol</option>
+                <option value="DOCTOR">MEDICO</option>
+                <option value="RECEPCIONISTA">RECEPCIONISTA</option>
+            </select>
+        </div>
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secundary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="btnGuardarUsuario" onclick="GuardarUsuario()">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
