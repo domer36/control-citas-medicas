@@ -1,7 +1,7 @@
 const transporter = require('../config/transporter')
 const Cita = require('../models/Dates')
 
-exports.SendMail = async (appoitment) => {
+exports.SendMail = (appoitment) => {
     const {fechaCita, paciente: {nombre: nombrePaciente, correo: correoPaciente}, doctor :{nombre: nombreDoctor}, especialidad: {nombre: nombreEspecialidad} } = await Cita.findById(appoitment._id).populate('doctor').populate('paciente').populate('especialidad')
 
     // const bodyMail = `
@@ -31,10 +31,10 @@ exports.SendMail = async (appoitment) => {
       </div>
     </div>
     `
-    await transporter.sendMail({
+    return transporter.sendMail({
         from: '"no-replay " <info@midoctor.com>',
         to: `"${nombrePaciente.toUpperCase()}" <${correoPaciente}>`, 
         subject: 'Confirmación: Tu cita se agendó con éxito', 
         html: bodyMail
-    })
+    }).then(res => console.log(res) ).catch(err => console.log(err) )
 }
