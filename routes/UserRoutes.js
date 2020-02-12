@@ -4,14 +4,14 @@ const passport = require("../config/passport");
 
 router.get("/signup",(req,res)=>res.render("auth/signup"))
 
-router.post("/auth/signup", async (req,res)=>{
+router.post("/signup", async (req,res)=>{
     console.log('aqui');
     
     const { email,role,password }=req.body;
     console.log(email, role, password);
     
     if(email==="" || password===""){
-        return res.render("/auth/signup",{message:"Llena todos los campos"});
+        return res.render("/signup",{message:"Llena todos los campos"});
     }
     console.log('pasando');
     
@@ -25,7 +25,7 @@ router.post("/auth/signup", async (req,res)=>{
                          password);
     console.log(newUser);
     res.send({ status: "done"})
-    //res.redirect("/auth/login");    
+    //res.redirect("/login");    
 })
 
 
