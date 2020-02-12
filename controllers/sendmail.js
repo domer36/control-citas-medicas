@@ -18,7 +18,7 @@ exports.SendMail = async (appoitment) => {
 
     <div class="card">
       <div class="card-header">
-        <img src="/images/midoc_total.png" class="img-fluid" alt="Responsive image">
+        <img src="https://consultas-medicas.herokuapp.com/images/midoc_total.png" class="img-fluid" alt="Responsive image">
       </div>
       <div class="card-body">
         <h5 class="card-title">Estimado(a): ${nombrePaciente.toUpperCase()}</h5>

@@ -446,7 +446,7 @@ async function GuardarUsuario(){
     id = document.querySelector('input[name="usuario_id"]').value
     if(id) return ActualizarUsuario(id)
 
-    const {data} = await axios.post('/auth/signup', getUsuarioFormData())
+    const {data} = await axios.post('/signup', getUsuarioFormData())
     $('#usuarioModal').modal('hide')
     if( data.status === 'done' ){
         Swal.fire({icon: 'success', text: 'El usuario se guardó con éxito'})

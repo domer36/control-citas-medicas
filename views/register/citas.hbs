@@ -1,7 +1,7 @@
 <div class="container mt-5">
     <h2>Citas</h2>
     <hr>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#citasModal" data-whatever="@mdo">Crear Cita</button>
+    <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#citasModal" data-whatever="@mdo">Crear Cita</button>
 <table class="table table-sm">
   <thead>
     <tr>
@@ -25,10 +25,10 @@
         <td>{{ cita.especialidad.nombre }}</td>
         <td>{{ cita.paciente.nombre }}</td>
         <td>{{ cita.doctor.nombre }}</td>
-        <td><button class="btn btn-warning" data-toggle="modal" data-target="#citasModal" onclick="ShowCita('{{cita._id}}')">Editar</button></td>
-        <td><button class="btn btn-danger" onclick="EliminarCita('{{cita._id}}','{{cita.nombre}}')">Eliminar</button></td>
+        <td><button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#citasModal" onclick="ShowCita('{{cita._id}}')">Editar</button></td>
+        <td><button class="btn btn-danger btn-sm" onclick="EliminarCita('{{cita._id}}','{{cita.nombre}}')">Eliminar</button></td>
         {{#if ../isDoctor}}
-          <td><button class="btn btn-primary" onclick="AtenderCita('{{cita._id}}','{{cita.nombre}}')">Atender</button></td>
+          <td><button class="btn btn-primary btn-sm" onclick="AtenderCita('{{cita._id}}','{{cita.nombre}}')">Atender</button></td>
         {{/if}}
         </tr>
       {{/each}}
@@ -64,11 +64,10 @@
                 <option value="{{paciente._id}}">{{paciente.nombre}}</option>
                 {{/each}}
             </select>
-            {{!-- <input type="text" class="form-control" name="cita_paciente" required> --}}
           </div>
           <div class="form-group">
             <label for="cita-especialidad" class="col-form-label">Especialidad:</label>
-            <select name="cita_especialidad" onchange="ObtenerDoctoresEspecialidad(this.value)">
+            <select class="form-control" name="cita_especialidad" onchange="ObtenerDoctoresEspecialidad(this.value)">
                 <option>Selecciona una especialidad</option>
                 {{#each especialidades}}
                 <option value="{{this._id}}">{{this.nombre}}</option>

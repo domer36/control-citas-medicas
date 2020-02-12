@@ -1,7 +1,7 @@
 <div class="container mt-5">
   <h2>Médicos</h2>
   <hr>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Agregar Doctor</button>
+    <button type="button" class="btn btn-outline-primarybtn-sm" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Agregar Doctor</button>
 <table class="table table-sm">
   <thead>
     <tr>
@@ -20,8 +20,8 @@
         <td>{{ doctor.cedula }}</td>
         <td>{{ doctor.especialidad.nombre }}</td>
         <td>{{ doctor.correo }}</td>
-        <td><button class="btn btn-warning" data-toggle="modal" data-target="#exampleModal" onclick="ShowDoctor('{{doctor._id}}')">Editar</button></td>
-        <td><button class="btn btn-danger" onclick="EliminarDoctor('{{doctor._id}}','{{doctor.nombre}}')">Eliminar</button></td>
+        <td><button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#exampleModal" onclick="ShowDoctor('{{doctor._id}}')">Editar</button></td>
+        <td><button class="btn btn-danger btn-sm" onclick="EliminarDoctor('{{doctor._id}}','{{doctor.nombre}}')">Eliminar</button></td>
         </tr>
       {{/each}}
   </tbody>
@@ -52,7 +52,7 @@
           <div class="form-group">
             <label for="doctor-especialidad" class="col-form-label">Especialidad:</label>
 
-            <select name="doctor_especialidad" required>
+            <select class="form-control" name="doctor_especialidad" required>
               <option>Selecciona una especialidad</option>
               {{#each especialidades}}
                 <option value="{{this._id}}">{{this.nombre}}</option>
