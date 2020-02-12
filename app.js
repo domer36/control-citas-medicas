@@ -35,14 +35,13 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/', isAuth, (req,res,next)=>{
-    console.log('lol')
-    res.render('index')
-})
+app.get('/', isAuth, (req,res,next)=>{res.render('index')})
 app.use('/', require('./routes/'))
 app.use('/', require('./routes/DoctorRoutes'))
 app.use('/', require('./routes/RecepcionistaRoutes'))
 app.use('/', require('./routes/PatientRoutes'))
 app.use('/',require('./routes/UserRoutes'))
 app.use('/',require('./routes/DatesRoutes'))
-app.listen(3000, ()=> console.log('Server ready on http://localhost:3000'))
+
+module.exports = app
+//app.listen(pro, ()=> console.log('Server ready on http://localhost:3000'))
