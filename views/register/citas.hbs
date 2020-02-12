@@ -1,0 +1,112 @@
+<div class="container mt-5">
+    <h2>Citas</h2>
+    <hr>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#citasModal" data-whatever="@mdo">Crear Cita</button>
+<table class="table table-sm">
+  <thead>
+    <tr>
+      <th scope="col">Fecha Cita</th>
+      <th scope="col">Hora</th>
+      <th scope="col">Especialidad</th>
+      <th scope="col">Paciente</th>
+      <th scope="col">Doctor</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+      {{#if isDoctor}}
+      <th scope="col"></th>
+      {{/if}}
+    </tr>
+  </thead>
+  <tbody>
+      {{#each citas as |cita|}}
+      <tr class="cita-{{indice}}">
+        <td>{{ cita.fechaCita }}</td>
+        <td>{{ cita.hora }}</td>
+        <td>{{ cita.especialidad.nombre }}</td>
+        <td>{{ cita.paciente.nombre }}</td>
+        <td>{{ cita.doctor.nombre }}</td>
+        <td><button class="btn btn-warning" data-toggle="modal" data-target="#citasModal" onclick="ShowCita('{{cita._id}}')">Editar</button></td>
+        <td><button class="btn btn-danger" onclick="EliminarCita('{{cita._id}}','{{cita.nombre}}')">Eliminar</button></td>
+        {{#if ../isDoctor}}
+          <td><button class="btn btn-primary" onclick="AtenderCita('{{cita._id}}','{{cita.nombre}}')">Atender</button></td>
+        {{/if}}
+        </tr>
+      {{/each}}
+  </tbody>
+</table>
+</div>
+
+
+
+
+
+
+
+
+
+<div class="modal fade" id="citasModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Datos de la Cita</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+            <input type="hidden" class="form-control" name="cita_id">
+          <div class="form-group">
+            <label for="cita-paciente" class="col-form-label">Paciente:</label>
+            <select name="cita_paciente" class="form-control">
+                <option>Selecciona un paciente</option>
+                {{#each pacientes as |paciente|}}
+                <option value="{{paciente._id}}">{{paciente.nombre}}</option>
+                {{/each}}
+            </select>
+            {{!-- <input type="text" class="form-control" name="cita_paciente" required> --}}
+          </div>
+          <div class="form-group">
+            <label for="cita-especialidad" class="col-form-label">Especialidad:</label>
+            <select name="cita_especialidad" onchange="ObtenerDoctoresEspecialidad(this.value)">
+                <option>Selecciona una especialidad</option>
+                {{#each especialidades}}
+                <option value="{{this._id}}">{{this.nombre}}</option>
+                {{/each}}
+            </select>
+            {{!-- <input type="text" class="form-control" name="cita_especialidad" required> --}}
+          </div>
+          <div class="form-group">
+            <label for="cita-doctor" class="col-form-label">Doctor:</label>
+
+            <select name="cita_doctor" class="form-control">
+                
+            </select>
+            {{!-- <input type="text" class="form-control" name="cita_doctor" required> --}}
+          </div>
+          <div class="form-group">
+            <label for="cita-fecha" class="col-form-label">Fecha:</label>
+            <input type="date" class="form-control" name="cita_fechaCita" required>
+          </div>
+
+          <div class="form-group">
+            <label for="cita-hora" class="col-form-label">Hora:</label>
+            <select name="cita_hora" class="form-control" required>
+                <option value="1">09:00 - 10:00</option>
+                <option value="2">10:00 - 11:00</option>
+                <option value="3">11:00 - 12:00</option>
+                <option value="4">12:00 - 13:00</option>
+                <option value="5">13:00 - 14:00</option>
+                <option value="6">15:00 - 16:00</option>
+                <option value="7">16:00 - 17:00</option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secundary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="btnGuardarCita" onclick="GuardarCita()">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>

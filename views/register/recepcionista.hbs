@@ -1,0 +1,55 @@
+<div class="container mt-5">
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#recepcionistaModal" data-whatever="@mdo">Agregar Recepcionista</button>
+<table class="table table-sm">
+  <thead>
+    <tr>
+      <th scope="col">Nombre</th>
+      <th scope="col">Correo</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+      {{#each recepcionistas as |recepcionista|}}
+      <tr class="doctor-{{indice}}">
+        <td>{{ recepcionista.nombre }}</td>
+        <td>{{ recepcionista.correo }}</td>
+        <td><button class="btn btn-warning" data-toggle="modal" data-target="#recepcionistaModal" onclick="ShowRecepcionista('{{recepcionista._id}}')">Editar</button></td>
+        <td><button class="btn btn-danger" onclick="EliminarRecepcionista('{{recepcionista._id}}','{{recepcionista.nombre}}')">Eliminar</button></td>
+        </tr>
+      {{/each}}
+  </tbody>
+</table>
+</div>
+
+
+<div class="modal fade" id="recepcionistaModal" tabindex="-1" role="dialog" aria-labelledby="recepcionistaModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="recepcionistaModalLabel">Datos del Asistente</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+            <input type="hidden" class="form-control" name="recepcionista_id">
+          <div class="form-group">
+            <label for="recepcionista-name" class="col-form-label">Nombre:</label>
+            <input type="text" class="form-control" name="recepcionista_name" required>
+          </div>
+
+          <div class="form-group">
+            <label for="recepcionista-email" class="col-form-label">Correo electrónico:</label>
+            <input type="text" class="form-control" name="recepcionista_correo" required>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secundary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="btnGuardarRecepcionista" onclick="GuardarRecepcionista()">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>

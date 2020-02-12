@@ -1,0 +1,73 @@
+<div class="container mt-5">
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Agregar Doctor</button>
+<table class="table table-sm">
+  <thead>
+    <tr>
+      <th scope="col">Nombre</th>
+      <th scope="col">Cedula</th>
+      <th scope="col">Especialidad</th>
+      <th scope="col">Correo</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+      {{#each doctores as |doctor indice|}}
+      <tr class="doctor-{{indice}}">
+        <td>{{ doctor.nombre }}</td>
+        <td>{{ doctor.cedula }}</td>
+        <td>{{ doctor.especialidad.nombre }}</td>
+        <td>{{ doctor.correo }}</td>
+        <td><button class="btn btn-warning" data-toggle="modal" data-target="#exampleModal" onclick="ShowDoctor('{{doctor._id}}')">Editar</button></td>
+        <td><button class="btn btn-danger" onclick="EliminarDoctor('{{doctor._id}}','{{doctor.nombre}}')">Eliminar</button></td>
+        </tr>
+      {{/each}}
+  </tbody>
+</table>
+</div>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Datos del Médico</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+            <input type="hidden" class="form-control" name="doctor_id">
+          <div class="form-group">
+            <label for="doctor-name" class="col-form-label">Nombre:</label>
+            <input type="text" class="form-control" name="doctor_name" required>
+          </div>
+          <div class="form-group">
+            <label for="doctor-cedula" class="col-form-label">Cedula Profesional:</label>
+            <input type="text" class="form-control" name="doctor_cedula" required>
+          </div>
+          <div class="form-group">
+            <label for="doctor-especialidad" class="col-form-label">Especialidad:</label>
+
+            <select name="doctor_especialidad" required>
+              <option>Selecciona una especialidad</option>
+              {{#each especialidades}}
+                <option value="{{this._id}}">{{this.nombre}}</option>
+                {{/each}}
+            </select>
+            {{!-- <input type="text" class="form-control" name="doctor_especialidad" required> --}}
+          </div>
+          <div class="form-group">
+            <label for="doctor-email" class="col-form-label">Correo electrónico:</label>
+            <input type="text" class="form-control" name="doctor_email" required>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secundary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="btnGuardarDoctor" onclick="GuardarDoctor()">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
