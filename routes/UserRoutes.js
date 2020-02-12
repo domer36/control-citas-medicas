@@ -24,7 +24,7 @@ router.post("/auth/signup", async (req,res)=>{
     const newUser=await User.register({email,role},
                          password);
     console.log(newUser);
-    res.redirect("/login");    
+    res.redirect("/auth/login");    
 })
 
 
@@ -32,7 +32,7 @@ router.get("/login",async(req,res)=>res.render("auth/login"));
 
 router.post("/auth/login",passport.authenticate("local",{
     successRedirect:"/",
-    failureRedirect:"/login"})
+    failureRedirect:"/auth/login"})
 )
 
 router.get("/logout",async(req,res,next)=>{

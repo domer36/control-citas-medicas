@@ -5,7 +5,7 @@ const Pacientes = require('../models/Patient')
 const Cita = require('../models/Dates')
 const Especialidad = require('../models/Especialidades')
 
-router.get('/', (req,res) => res.render('index'))
+//router.get('/', (req,res) => res.render('index'))
 router.get('/get/doctorForm', async (req,res) => {
     const doctores = await Doctor.find().populate('especialidad')
     const especialidades = await Especialidad.find().sort({nombre: 1})
