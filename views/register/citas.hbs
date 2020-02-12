@@ -12,6 +12,9 @@
       <th scope="col">Doctor</th>
       <th scope="col"></th>
       <th scope="col"></th>
+      {{#if isDoctor}}
+      <th scope="col"></th>
+      {{/if}}
     </tr>
   </thead>
   <tbody>
@@ -24,6 +27,9 @@
         <td>{{ cita.doctor.nombre }}</td>
         <td><button class="btn btn-warning" data-toggle="modal" data-target="#citasModal" onclick="ShowCita('{{cita._id}}')">Editar</button></td>
         <td><button class="btn btn-danger" onclick="EliminarCita('{{cita._id}}','{{cita.nombre}}')">Eliminar</button></td>
+        {{#if ../isDoctor}}
+          <td><button class="btn btn-primary" onclick="AtenderCita('{{cita._id}}','{{cita.nombre}}')">Atender</button></td>
+        {{/if}}
         </tr>
       {{/each}}
   </tbody>

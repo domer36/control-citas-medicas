@@ -1,4 +1,5 @@
 function displayPage(url){
+    document.querySelector('.content').innerHTML='<img style="position:absolute;margin-left:-128px; margin-top: -128px;left: 50%;top:50%;" src="/images/loading.gif"/>'
     axios.get(url).then( res=> document.querySelector('.content').innerHTML=res.data).catch(err => console.log(err))
 }
 

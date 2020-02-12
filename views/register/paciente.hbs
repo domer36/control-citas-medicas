@@ -1,7 +1,7 @@
 <div class="container mt-5">
     <h2>Pacientes</h2>
     <hr>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#pacienteModal" data-whatever="@mdo">Agregar Paciente</button>
+    <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#pacienteModal" data-whatever="@mdo">Agregar Paciente</button>
 <table class="table table-sm">
   <thead>
     <tr>
@@ -28,8 +28,8 @@
         <td>{{ paciente.tipoSangre }}</td>
         <td>{{ paciente.estadoCivil }}</td>
         <td>{{ paciente.correo }}</td>
-        <td><button class="btn btn-warning" data-toggle="modal" data-target="#pacienteModal" onclick="ShowPaciente('{{paciente._id}}')">Editar</button></td>
-        <td><button class="btn btn-danger" onclick="EliminarPaciente('{{paciente._id}}','{{paciente.nombre}}')">Eliminar</button></td>
+        <td><button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#pacienteModal" onclick="ShowPaciente('{{paciente._id}}')">Editar</button></td>
+        <td><button class="btn btn-danger btn-sm" onclick="EliminarPaciente('{{paciente._id}}','{{paciente.nombre}}')">Eliminar</button></td>
         </tr>
       {{/each}}
   </tbody>

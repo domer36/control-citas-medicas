@@ -29,6 +29,9 @@ router.get('/get/citasForm', async (req,res) => {
     const pacientes = await Pacientes.find()
     const doctores = await Doctor.find()
     const especialidades = await Especialidad.find().sort({nombre: 1})
+
+    req.app.locals.isDoctor = (req.user.role === 'DOCTOR') ? true : false
+    req.app.locals.isAdmin = (req.user.role === 'ADMIN') ? true : false
     res.render('register/citas', {citas,pacientes,especialidades})
 })
 
