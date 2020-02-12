@@ -3,8 +3,8 @@ function displayPage(url){
 }
 
 function ObtenerDoctoresEspecialidad(e) {
-    console.log(e.value)
-    axios.get('/especialidad/'+e.value).then( doctors => {
+    console.log(e)
+    axios.get('/especialidad/'+e).then( doctors => {
         const select = document.querySelector('select[name="cita_doctor"]')
         select.innerHTML = ''
         doctors.data.forEach( doctor => {
@@ -61,6 +61,22 @@ return {
     patient_estadoCivil,
     patient_correo
 }
+}
+
+function getCitaFormData(){
+    const fechaCita = document.querySelector('input[name="cita_fechaCita"]').value
+    const hora = document.querySelector('select[name="cita_hora"]').value
+    const paciente = document.querySelector('select[name="cita_paciente"]').value
+    const doctor = document.querySelector('select[name="cita_doctor"]').value
+    const especialidad = document.querySelector('select[name="cita_especialidad"]').value
+
+    return {
+        fechaCita,
+        hora,
+        paciente,
+        doctor,
+        especialidad
+        }
 }
 
 
@@ -314,6 +330,105 @@ function ShowPaciente(id){
         
         }else{
             Swal.fire({icon: 'error', text:' No se encontró el paciente'})
+        }
+    })
+    .catch(err => console.log(err))
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+async function GuardarCita(){
+    const id = document.querySelector('input[name="cita_id"]').value
+    if( id ) return EditarCita(id)
+console.log( 'getting', getCitaFormData() );
+
+    await axios.post('/dates', getCitaFormData()).then(res => {
+        console.log(res.data.message)
+        $('#citasModal').modal('hide')
+        if( res.data.status === 'done') {
+            Swal.fire({ icon: 'success', text: 'Se guardó con éxito' })
+            displayPage('/get/citasForm')
+        }
+        else if( res.data.status === 'error') Swal.fire({ icon: 'error', text: res.data.message })
+    }).catch(err => {
+        console.log(err)
+    })
+}
+
+function EditarCita(id){
+    axios.put('/dates/'+id, getCitaFormData()).then(res => {
+        console.log(res.data.message)
+        $('#citasModal').modal('hide')
+        if( res.data.status === 'done') {
+            Swal.fire({ icon: 'success', text: 'Se guardó con éxito' })
+            displayPage('/get/citasForm')
+        }
+        else if( res.data.status === 'error') Swal.fire({ icon: 'error', text: res.data.message })
+    }).catch(err => {
+        console.log(err)
+    })
+}
+
+
+
+function EliminarCita(id){
+    Swal.fire({
+        title: 'Estas seguro que deseas eliminar la cita?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, eliminar!'
+      }).then(async (result) => {
+        if (result.value) {
+            await axios.delete('/dates/'+id)
+            Swal.fire(
+              'Eliminado!',
+              'Se eliminó con éxito.',
+              'success'
+            )
+            displayPage('/get/citasForm')
+        }
+      })
+
+
+
+
+}
+
+function ShowCita(id){
+    const url = `/dates/${id}`
+    console.log(url)
+    axios.get(url)
+    .then(({data}) => {
+        console.log(data);
+        
+        if( data._id ){
+            ObtenerDoctoresEspecialidad(data.especialidad._id)
+            document.querySelector('input[name="cita_id"]').value = data._id
+            document.querySelector('input[name="cita_fechaCita"]').value = data.fechaCita
+            document.querySelector('select[name="cita_hora"]').value = data.hora
+            document.querySelector('select[name="cita_paciente"]').value = data.paciente._id
+            document.querySelector('select[name="cita_doctor"]').value = data.doctor._id
+            document.querySelector('select[name="cita_especialidad"]').value = data.especialidad._id
+        }else{
+            Swal.fire({icon: 'error', text:' No se encontró la cita'})
         }
     })
     .catch(err => console.log(err))
