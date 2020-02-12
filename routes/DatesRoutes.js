@@ -1,5 +1,6 @@
 const router =require("express").Router();
 const Dates = require("../models/Dates")
+const {SendMail} = require('../controllers/sendmail')
 
 router.post("/dates",async (req,res)=>{
     const {fechaCita,
@@ -24,7 +25,7 @@ router.post("/dates",async (req,res)=>{
             message:"La cita ya existe"
         })
     }
-    await Dates.create( 
+    Dates.create( 
         {
             fechaCita,
             hora,
@@ -32,18 +33,20 @@ router.post("/dates",async (req,res)=>{
             doctor,
             especialidad
         })
-        .then(
+        .then( async appoitment => {
+            await SendMail(appoitment)
             res.send({
                 status:"done",
                 message:"Cita Guardada"
             })
-        )
-        .catch(
+
+        })
+        .catch( x => {
             res.send({
                 status:"error",
                 message:"Error al guardar"
             })
-        )
+        })
 
 })
 
