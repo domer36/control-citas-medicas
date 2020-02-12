@@ -33,8 +33,8 @@ router.post("/dates",async (req,res)=>{
             doctor,
             especialidad
         })
-        .then( appoitment => {
-            SendMail(appoitment)
+        .then( async appoitment => {
+            console.log('Sendmail', await SendMail(appoitment))
             res.send({
                 status:"done",
                 message:"Cita Guardada"
