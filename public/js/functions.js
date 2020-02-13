@@ -89,7 +89,20 @@ function getUsuarioFormData(){
 }
 
 
+async function GuardarAtenderCita(){
+    const id = document.querySelector('[name="atender_cita_id"]').value
+    const diagnostico = document.querySelector('[name="atender_cita_diagnostico"]').value
+    const tratamiento = document.querySelector('[name="atender_cita_tratamiento"]').value
+    const peso = document.querySelector('[name="atender_cita_peso"]').value
+    const estatura = document.querySelector('[name="atender_cita_estatura"]').value
+    const precion = document.querySelector('[name="atender_cita_precion"]').value
 
+    await axios.put('/guardardiagnostico/'+id, {
+        diagnostico, tratamiento, peso, estatura, precion
+    })
+    Swal.fire({icon: 'success', text: 'Se guardó con éxito'})
+    displayPage('/get/citasForm')
+}
 
 async function GuardarDoctor(){
     const id = document.querySelector('input[name="doctor_id"]').value

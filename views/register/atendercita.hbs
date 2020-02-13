@@ -1,0 +1,46 @@
+<div class="container">
+    <h2>Consulta</h2>
+    <hr>
+    <input type="hidden" name="atender_cita_id" value="{{ _id }}">
+    <div class="row">
+        <div class="col"><b>Paciente:</b>{{paciente.nombre}}</div>
+    </div>
+    <div class="row">
+        <div class="col"><b>Médico:</b>{{doctor.nombre}}</div>
+    </div>
+    <div class="row">
+        <div class="col"><b>Especialidad:</b>{{especialidad.nombre}}</div>
+    </div>
+        <div class="row">
+
+            <div class="col-10">
+                <div class="form-group">
+                    <label for="cita-doctor" class="col-form-label"><b>Diagnostico</b>:</label>
+                    <textarea class="form-control" name="atender_cita_diagnostico" id="" style="width: 100%; height: 100px;"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="cita-doctor" class="col-form-label"><b>Tratamiento</b>:</label>
+                    <textarea class="form-control" name="atender_cita_tratamiento" id="" style="width: 100%; height: 100px;"></textarea>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="cita-doctor" class="col-form-label">Peso:</label>
+                    <input type="text" class="form-control" name="atender_cita_peso">
+                </div>
+                <div class="form-group">
+                    <label for="cita-doctor" class="col-form-label">Estatura:</label>
+                    <input type="text" class="form-control" name="atender_cita_estatura">
+                </div>
+
+                <div class="form-group">
+                    <label for="cita-doctor" class="col-form-label">Precion:</label>
+                    <input type="text" class="form-control" name="atender_cita_precion">
+                </div>
+
+                <div style="display: flex; flex-direction: column-reverse;">
+                    <button class="btn btn-primary" onclick="GuardarAtenderCita(this)">Guardar</button>
+                </div>
+            </div>
+        </div>
+</div>
