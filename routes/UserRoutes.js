@@ -2,7 +2,7 @@ const router =require("express").Router();
 const User = require("../models/User");
 const passport = require("../config/passport");
 
-router.get("/signup",(req,res)=>res.render("auth/signup"))
+
 
 router.post("/signup", async (req,res)=>{
     console.log('aqui');
@@ -17,7 +17,9 @@ router.post("/signup", async (req,res)=>{
     
     const user = await User.findOne({email});
     if(user){
-        return res.render("auth/signup",{message:"El usuario ya existe"});
+        return res.send({
+        status:"error",
+        message:"El Usuario ya existe"});
     }
     console.log('por aca');
     

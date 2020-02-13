@@ -79,12 +79,12 @@ router.put("/patient/:id", async (req,res)=>{
         message:"Favor de llenar todos los campos requeridos"
         })
     }
-    // if(await Patient.findOne({curp: patient_curp})){
-    //     return res.send({
-    //         status:"error",
-    //         message:"El paciente ya existe"
-    //     })
-    // }
+    if(await Patient.findOne({curp: patient_curp})){
+        return res.send({
+            status:"error",
+            message:"El paciente ya existe"
+        })
+    }
     await Patient.findByIdAndUpdate({_id: req.params.id},
         {   
             nombre:patient_name,

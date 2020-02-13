@@ -4,7 +4,6 @@ function displayPage(url){
 }
 
 function ObtenerDoctoresEspecialidad(e) {
-    console.log(e)
     axios.get('/especialidad/'+e).then( doctors => {
         const select = document.querySelector('select[name="cita_doctor"]')
         select.innerHTML = ''
@@ -110,30 +109,24 @@ async function GuardarDoctor(){
     if( id ) return EditarDoctor(id)
 
     await axios.post('/doctores', getDoctorFormData()).then(res => {
-        console.log(res.data.message)
         $('#exampleModal').modal('hide')
         if( res.data.status === 'done') {
             Swal.fire({ icon: 'success', text: 'Se guardó con éxito' })
             displayPage('/get/doctorForm')
         }
         else if( res.data.status === 'error') Swal.fire({ icon: 'error', text: res.data.message })
-    }).catch(err => {
-        console.log(err)
-    })
+    }).catch(err => console.log(err))
 }
 
 function EditarDoctor(id){
     axios.put('/doctores/'+id, getDoctorFormData()).then(res => {
-        console.log(res.data.message)
         $('#exampleModal').modal('hide')
         if( res.data.status === 'done') {
             Swal.fire({ icon: 'success', text: 'Se guardó con éxito' })
             displayPage('/get/doctorForm')
         }
         else if( res.data.status === 'error') Swal.fire({ icon: 'error', text: res.data.message })
-    }).catch(err => {
-        console.log(err)
-    })
+    }).catch(err => console.log(err))
 }
 
 function EliminarDoctor(id, name){
@@ -160,7 +153,6 @@ function EliminarDoctor(id, name){
 
 function ShowDoctor(id){
     const url = `/doctores/${id}`
-    console.log(url)
     axios.get(url)
     .then(({data}) => {
         if( data._id ){
@@ -180,34 +172,27 @@ function ShowDoctor(id){
 
 async function GuardarRecepcionista(){
     const id = document.querySelector('input[name="recepcionista_id"]').value
-    if( id ) return EditarRecepcionista(id)
-console.log( getRecepcionistaFormData() );
+    if( id ) return EditarRecepcionista(id);
 
     await axios.post('/recepcionista', getRecepcionistaFormData()).then(res => {
-        console.log(res.data.message)
         $('#recepcionistaModal').modal('hide')
         if( res.data.status === 'done') {
             Swal.fire({ icon: 'success', text: 'Se guardó con éxito' })
             displayPage('/get/recepcionistaForm')
         }
         else if( res.data.status === 'error') Swal.fire({ icon: 'error', text: res.data.message })
-    }).catch(err => {
-        console.log(err)
-    })
+    }).catch(err => console.log(err))
 }
 
 function EditarRecepcionista(id){
     axios.put('/recepcionista/'+id, getRecepcionistaFormData()).then(res => {
-        console.log(res.data.message)
         $('#recepcionistaModal').modal('hide')
         if( res.data.status === 'done') {
             Swal.fire({ icon: 'success', text: 'Se guardó con éxito' })
             displayPage('/get/recepcionistaForm')
         }
         else if( res.data.status === 'error') Swal.fire({ icon: 'error', text: res.data.message })
-    }).catch(err => {
-        console.log(err)
-    })
+    }).catch(err => console.log(err))
 }
 
 
@@ -240,11 +225,8 @@ function EliminarRecepcionista(id, name){
 
 function ShowRecepcionista(id){
     const url = `/recepcionista/${id}`
-    console.log(url)
     axios.get(url)
-    .then(({data}) => {
-        console.log(data);
-        
+    .then(({data}) => {        
         if( data._id ){
             document.querySelector('input[name="recepcionista_id"]').value = data._id
             document.querySelector('input[name="recepcionista_name"]').value = data.nombre
@@ -276,33 +258,26 @@ function ShowRecepcionista(id){
 async function GuardarPaciente(){
     const id = document.querySelector('input[name="patient_id"]').value
     if( id ) return EditarPaciente(id)
-console.log( 'getting', getPacienteFormData() );
 
     await axios.post('/patient', getPacienteFormData()).then(res => {
-        console.log(res.data.message)
         $('#pacienteModal').modal('hide')
         if( res.data.status === 'done') {
             Swal.fire({ icon: 'success', text: 'Se guardó con éxito' })
             displayPage('/get/pacienteForm')
         }
         else if( res.data.status === 'error') Swal.fire({ icon: 'error', text: res.data.message })
-    }).catch(err => {
-        console.log(err)
-    })
+    }).catch(err =>console.log(err))
 }
 
 function EditarPaciente(id){
     axios.put('/patient/'+id, getPacienteFormData()).then(res => {
-        console.log(res.data.message)
         $('#pacienteModal').modal('hide')
         if( res.data.status === 'done') {
             Swal.fire({ icon: 'success', text: 'Se guardó con éxito' })
             displayPage('/get/pacienteForm')
         }
         else if( res.data.status === 'error') Swal.fire({ icon: 'error', text: res.data.message })
-    }).catch(err => {
-        console.log(err)
-    })
+    }).catch(err => console.log(err))
 }
 
 
@@ -335,10 +310,8 @@ function EliminarPaciente(id, name){
 
 function ShowPaciente(id){
     const url = `/patient/${id}`
-    console.log(url)
     axios.get(url)
     .then(({data}) => {
-        console.log(data);
         
         if( data._id ){
             document.querySelector('input[name="patient_id"]').value = data._id
@@ -387,23 +360,18 @@ async function GuardarCita(){
             displayPage('/get/citasForm')
         }
         else if( res.data.status === 'error') Swal.fire({ icon: 'error', text: res.data.message })
-    }).catch(err => {
-        console.log(err)
-    })
+    }).catch(err => console.log(err))
 }
 
 function EditarCita(id){
     axios.put('/dates/'+id, getCitaFormData()).then(res => {
-        console.log(res.data.message)
         $('#citasModal').modal('hide')
         if( res.data.status === 'done') {
             Swal.fire({ icon: 'success', text: 'Se guardó con éxito' })
             displayPage('/get/citasForm')
         }
         else if( res.data.status === 'error') Swal.fire({ icon: 'error', text: res.data.message })
-    }).catch(err => {
-        console.log(err)
-    })
+    }).catch(err => console.log(err))
 }
 
 
@@ -435,10 +403,8 @@ function EliminarCita(id){
 
 function ShowCita(id){
     const url = `/dates/${id}`
-    console.log(url)
     axios.get(url)
     .then(({data}) => {
-        console.log(data);
         
         if( data._id ){
             ObtenerDoctoresEspecialidad(data.especialidad._id)
@@ -466,7 +432,7 @@ async function GuardarUsuario(){
         Swal.fire({icon: 'success', text: 'El usuario se guardó con éxito'})
         displayPage('/get/usuariosForm')
     }else{
-        Swal.fire({icon: 'error', text: 'Ocurrio un error al guardarel usuario.'})
+        Swal.fire({icon: 'error', text: data.message})
     }
 
 }
@@ -478,7 +444,7 @@ async function ActualizarUsuario(id){
         Swal.fire({icon: 'success', text: 'El usuario se guardó con éxito'})
         displayPage('/get/usuariosForm')
     }else{
-        Swal.fire({icon: 'error', text: 'Ocurrio un error al guardarel usuario.'})
+        Swal.fire({icon: 'error', text: data.message})
     }
 
 }

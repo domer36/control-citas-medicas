@@ -18,7 +18,7 @@ router.post("/dates",async (req,res)=>{
             message:"Favor de llenar todos los campos requeridos"
         })
     }
-    const dates = await Dates.findOne({fechaCita,hora});
+    const dates = await Dates.findOne({fechaCita,hora,doctor});
     if(dates){
         return res.send({
             status:"error",
@@ -67,7 +67,7 @@ router.put("/dates/:id", async (req,res)=>{
             message:"Favor de llenar todos los campos requeridos"
         })
     }
-    if(await Dates.findOne({fechaCita,hora})){
+    if(await Dates.findOne({fechaCita,hora,doctor})){
         return res.send({
             status:"error",
             message:"La cita ya existe"

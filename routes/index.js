@@ -66,6 +66,12 @@ router.get('/get/usuariosForm', async (req,res) => {
 
 .put('/user/:id', async (req, res)=>{
     const {email, role}= req.body
+    const user = await Usuario.findOne({email});
+    if(user){
+        return res.send({
+        status:"error",
+        message:"El Usuario ya existe"});
+    }
     const usuario = await Usuario.findByIdAndUpdate(req.params.id, {email, role})
     if(usuario) res.send({status: 'done'})
     else res.send({status: 'error'})
