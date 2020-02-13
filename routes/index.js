@@ -58,6 +58,7 @@ router.get('/get/usuariosForm', async (req,res) => {
     const {peso, estatura, precion, diagnostico, tratamiento} = req.body
     await Cita.findByIdAndUpdate({_id: req.params.id}, {peso, estatura, precion, diagnostico, tratamiento})
     const cita = await Cita.findOne({_id: req.params.id}).populate('paciente').populate('doctor').populate('especialidad')
+    CrearPDF(cita)
     res.send({status: 'done'})
 })
 
