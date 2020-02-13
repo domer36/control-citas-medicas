@@ -34,7 +34,7 @@ router.post("/dates",async (req,res)=>{
             especialidad
         })
         .then( async appoitment => {
-            console.log('Sendmail', await SendMail(appoitment))
+            await SendMail(appoitment)
             res.send({
                 status:"done",
                 message:"Cita Guardada"
@@ -121,14 +121,4 @@ router.get("/dates/:id",async(req,res)=>{
                 message:"No se encontro la cita"}
 })
 module.exports = router
-
-// router.get("/especialidad",async(req,res)=>{
-//     const dates= await Dates.findById(req.params.id)
-//     dates.status="done";
-//     dates.message="Paciente Encontrado"
-//     if(dates) return res.send(dates)
-//     else return{status:"error",
-//                 message:"No se encontro la cita"}
-// })
-//.exports = router
 

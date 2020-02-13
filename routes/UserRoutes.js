@@ -5,15 +5,12 @@ const passport = require("../config/passport");
 
 
 router.post("/signup", async (req,res)=>{
-    console.log('aqui');
     
     const { email,role,password }=req.body;
-    console.log(email, role, password);
     
     if(email==="" || password===""){
         return res.render("/signup",{message:"Llena todos los campos"});
     }
-    console.log('pasando');
     
     const user = await User.findOne({email});
     if(user){
@@ -21,13 +18,9 @@ router.post("/signup", async (req,res)=>{
         status:"error",
         message:"El Usuario ya existe"});
     }
-    console.log('por aca');
     
-    const newUser=await User.register({email,role},
-                         password);
-    console.log(newUser);
-    res.send({ status: "done"})
-    //res.redirect("/login");    
+    const newUser=await User.register({email,role},password);
+    res.send({ status: "done"})  
 })
 
 
@@ -45,7 +38,6 @@ router.get("/logout",async(req,res,next)=>{
 
 .get('/user/:id', async (req, res) => {
     const usuario = await User.findById( req.params.id)
-    console.log(usuario);
 
     res.send(usuario)
 })

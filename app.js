@@ -3,7 +3,6 @@ require('dotenv').config();
 const bodyParser   = require('body-parser');
 const cookieParser = require('cookie-parser');
 const express      = require('express');
-const hbs          = require('hbs');
 const mongoose     = require('mongoose');
 const logger       = require('morgan');
 const path         = require('path');
@@ -44,4 +43,3 @@ app.use('/',require('./routes/UserRoutes'))
 app.use('/',require('./routes/DatesRoutes'))
 
 module.exports = app
-//app.listen(pro, ()=> console.log('Server ready on http://localhost:3000'))
