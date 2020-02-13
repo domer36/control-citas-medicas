@@ -512,3 +512,5 @@ async function ShowUsuario(id){
     document.querySelector('input[name="email"]').value = data.email
     document.querySelector('select[name="role"]').value = data.role    
 }
+
+displayPage('/get/citasForm')
