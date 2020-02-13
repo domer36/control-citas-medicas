@@ -89,7 +89,7 @@ function getUsuarioFormData(){
 }
 
 
-async function GuardarAtenderCita(){
+async function GuardarAtenderCita(e){
     const id = document.querySelector('[name="atender_cita_id"]').value
     const diagnostico = document.querySelector('[name="atender_cita_diagnostico"]').value
     const tratamiento = document.querySelector('[name="atender_cita_tratamiento"]').value
@@ -101,6 +101,7 @@ async function GuardarAtenderCita(){
         diagnostico, tratamiento, peso, estatura, precion
     })
     Swal.fire({icon: 'success', text: 'Se guardó con éxito'})
+    window.open(`/recetas/${id}.pdf`, '_blank')
     displayPage('/get/citasForm')
 }
 

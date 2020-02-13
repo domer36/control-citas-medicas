@@ -5,6 +5,7 @@ const Pacientes = require('../models/Patient')
 const Cita = require('../models/Dates')
 const Especialidad = require('../models/Especialidades')
 const Usuario = require('../models/User')
+const { CrearPDF } = require('../controllers/creareceta')
 
 //router.get('/', (req,res) => res.render('index'))
 router.get('/get/doctorForm', async (req,res) => {
@@ -58,6 +59,8 @@ router.get('/get/usuariosForm', async (req,res) => {
 .put('/guardardiagnostico/:id', async (req, res) => {
     const {peso, estatura, precion, diagnostico, tratamiento} = req.body
     await Cita.findByIdAndUpdate({_id: req.params.id}, {peso, estatura, precion, diagnostico, tratamiento})
+    const cita = await Cita.findOne({_id: req.params.id}).populate('paciente').populate('doctor').populate('especialidad')
+    console.log('receta', CrearPDF(cita) )
     res.send({status: 'done'})
 })
 
