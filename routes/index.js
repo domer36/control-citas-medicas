@@ -50,6 +50,17 @@ router.get('/get/usuariosForm', async (req,res) => {
     
 })
 
+.get('/atender_cita/:id', async (req, res) => {
+    const cita = await Cita.findOne({_id: req.params.id}).populate('paciente').populate('doctor').populate('especialidad')
+    res.render('register/atendercita', cita)
+})
+
+.put('/guardardiagnostico/:id', async (req, res) => {
+    const {peso, estatura, precion, diagnostico, tratamiento} = req.body
+    await Cita.findByIdAndUpdate({_id: req.params.id}, {peso, estatura, precion, diagnostico, tratamiento})
+    res.send({status: 'done'})
+})
+
 .put('/user/:id', async (req, res)=>{
     const {email, role}= req.body
     const usuario = await Usuario.findByIdAndUpdate(req.params.id, {email, role})
@@ -61,6 +72,7 @@ router.get('/get/usuariosForm', async (req,res) => {
     await Usuario.findByIdAndDelete( req.params.id )
     res.send({status: 'done'})
 })
+
 
 
 module.exports = router

@@ -23,11 +23,9 @@ exports.SendMail = async (appoitment) => {
       <div class="card-body">
         <h5 class="card-title">Estimado(a): ${nombrePaciente.toUpperCase()}</h5>
         <p class="card-text">Le informamos que su cita ha sido agendada con éxito, a continuación encontrará los detalles de la misma.</p>
-        <br>
-        <b>Fecha</b>: ${fechaCita}<br>
-        <b>Especialidad</b>: ${nombreEspecialidad}<br>
-        <b>Médico</b>: ${nombreDoctor}<br>
-    
+        <p class="card-text"><b>Fecha</b>: ${fechaCita}</p>
+        <p class="card-text"><b>Especialidad</b>: ${nombreEspecialidad}</p>
+        <p class="card-text"><b>Médico</b>: ${nombreDoctor.toUpperCase()}</p>
       </div>
     </div>
     `

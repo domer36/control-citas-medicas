@@ -28,7 +28,7 @@
         <td><button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#citasModal" onclick="ShowCita('{{cita._id}}')">Editar</button></td>
         <td><button class="btn btn-danger btn-sm" onclick="EliminarCita('{{cita._id}}','{{cita.nombre}}')">Eliminar</button></td>
         {{#if ../isDoctor}}
-          <td><button class="btn btn-primary btn-sm" onclick="AtenderCita('{{cita._id}}','{{cita.nombre}}')">Atender</button></td>
+          <td><button class="btn btn-primary btn-sm" onclick="displayPage('/atender_cita/{{cita._id}}')">Atender</button></td>
         {{/if}}
         </tr>
       {{/each}}
