@@ -9,9 +9,12 @@ const path         = require('path');
 const passport = require("./config/passport");
 const session = require("express-session");
 const { isAuth, isAdmin } = require("./middlewares/auth");
+const {FirstConfig} = require('./config/firstconfig')
 
 mongoose.connect(process.env.DB, {useUnifiedTopology: true, useNewUrlParser: true})
-.then(db => console.log( 'DB connected'))
+.then(db => {
+    FirstConfig()
+})
 .catch(err => console.log(console.error(err)))
 
 const app = express()
